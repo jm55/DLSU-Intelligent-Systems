@@ -1,0 +1,3 @@
+# MazeBot
+## Description
+To create an application that would demonstrate the skills in developing and evaluating the artificial intelligence of a bot. A tree search algorithm to make their bot smart. Then, the behavior of their bot must be examined carefully to decide whether to consider the bot intelligent or not. They will also write a report explaining very clearly and convincingly why they think the bot is intelligent or unintelligent. Refer to the file for more details about the project: [Instructions](https://www.google.com).
