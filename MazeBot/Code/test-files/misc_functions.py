@@ -1,8 +1,6 @@
 import numpy as np
 from array import *
 
-dimension = 0
-
 def findStart(maze):
 
     count_i = 0
@@ -36,7 +34,7 @@ def main():
 
     with open('maze.txt') as maze_file:
         str_dimension = maze_file.readline().strip()
-        dimension = int(str_dimension)
+        dimension = int(str_dimension) 
 
         maze_contents = maze_file.readlines()
         for row in maze_contents:
