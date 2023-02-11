@@ -11,7 +11,6 @@ def define_maze():
 
     dimension = int(str_dimension)
 
-
     #Make maze 2d array
     maze = []
     maze.append(temp)
@@ -30,10 +29,6 @@ def define_maze():
     # print(maze[0,7])
     # print(maze[0,8])
     # print(maze[0,9])
-
-
-   
-
 
 if __name__ == "__main__":
     temp = []
