@@ -1,6 +1,8 @@
 import os
 import re
 
+global dimension
+
 def chk(): #To check if the script/class imports correctly.
     print("This is utilities.py")
 
