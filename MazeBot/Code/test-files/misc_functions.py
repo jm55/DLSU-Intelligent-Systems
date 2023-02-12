@@ -10,10 +10,8 @@ def findStart(maze):
 
     for i in maze:
         count_i += 1
-
         for j in i:
             count_j += 1
-
             if j == 'S':
                 return count_i, count_j
         count_j = 0
@@ -26,9 +24,7 @@ def findGoal(maze):
 
     for i in maze:
         count_i += 1
-
         for j in i:
-            
             count_j += 1
             if j == 'G':
                 return count_i, count_j
