@@ -62,7 +62,6 @@ class grid:
                 y += 1       
             y = 0
             x += 1
-
     def get_type(self, x:int, y:int):
         """Returns the type of the tile in the grid"""
         return self.tiles[x][y].type
