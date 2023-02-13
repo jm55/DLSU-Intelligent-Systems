@@ -1,17 +1,18 @@
-import utilities
+import utilities as utils
 import gui
-from tile import tile
-from grid import grid
+from astar import astar
 
 def main():
-    #Import test
-    t = tile(0,0,'S')
-    g = grid()
-    utilities.chk()
-    t.chk()
-    g.chk()
-    gui.chk()
-    chk()
+    utils.cls()
+
+    grid = utils.read_maze(gui.ask_file())
+
+    #inject bot at grid
+    bot_loc = grid.locate_s()
+    grid.tiles[bot_loc[0]][bot_loc[1]].type = 'SB'
+
+    path = astar(grid)
+    gui.print_path(grid, path)
 
 def chk():
     print("This is driver.py")
