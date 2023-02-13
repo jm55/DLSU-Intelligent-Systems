@@ -1,7 +1,19 @@
-import numpy as np
-from array import *
-
 global dimension 
+
+def findBot(maze):
+
+    count_i = 0
+    count_j = 0
+
+    for i in maze:
+        count_i += 1
+        for j in i:
+            count_j += 1
+            if j == 'X': #for example, X is used to denote the bot
+                return count_i, count_j
+        count_j = 0
+    count_i = 0
+
 
 def findStart(maze):
 
@@ -10,10 +22,8 @@ def findStart(maze):
 
     for i in maze:
         count_i += 1
-
         for j in i:
             count_j += 1
-
             if j == 'S':
                 return count_i, count_j
         count_j = 0
@@ -26,9 +36,7 @@ def findGoal(maze):
 
     for i in maze:
         count_i += 1
-
         for j in i:
-            
             count_j += 1
             if j == 'G':
                 return count_i, count_j
@@ -47,15 +55,20 @@ def ReadFile():
         for row in maze_contents:
             maze.append(row.strip())
 
-
+#Test
 if __name__ == "__main__":
     maze = []
     ReadFile()
+
     i, j = findGoal(maze)
     print(i)
     print(j)
 
     i, j = findStart(maze)
+    print(i)
+    print(j)
+
+    i,j = findBot(maze)
     print(i)
     print(j)
 
