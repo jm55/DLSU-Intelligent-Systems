@@ -1,18 +1,12 @@
-import utilities
-import gui
-from tile import tile
-from grid import grid
+from objects import *
+from utilities import *
+from astar import *
+
 
 def main():
-    #Import test
-    t = tile(0,0,'S')
-    g = grid()
-    utilities.chk()
-    t.chk()
-    g.chk()
-    gui.chk()
-    chk()
-
+    grid = read_maze("maze.txt")
+    path = astar(grid)
+    print(path)
 def chk():
     print("This is driver.py")
 
