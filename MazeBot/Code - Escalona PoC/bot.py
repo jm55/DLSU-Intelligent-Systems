@@ -7,96 +7,94 @@ import gui
 class bot:
     def __init__(self, init_grid):
         self.initial_grid = init_grid
-        self.open = []
-        self.closed = []
+        self.frontier = []
+        self.explored = []
 
+    #Finds the lowest f from the open/frontier states/nodes
     def find_lowest_f(self):
         lowest = 4096 #Arbitrary init lowest by 64^2
-        idx = -1
+        idx = -1 #Index for value return
 
-        if len(self.open) == 0:
+        if len(self.frontier) == 0: #Although unlikely, return None if no contents in frontier list
             return None
 
-        for o in range(len(self.open)):
-            if self.open[o].f_cost < lowest:
-                lowest = self.open[o].f_cost
+        for o in range(len(self.frontier)):
+            if self.frontier[o].f_cost < lowest:
+                lowest = self.frontier[o].f_cost
                 idx = o
-        return self.open[idx] #Return grid item w/ lowest f
+
+        return self.frontier[idx] #Return grid item w/ lowest f
 
     #Based from SebLague's AStar Pseudocode
     def a_star(self):
-        
-        self.open.append(self.initial_grid)
+        self.frontier.append(self.initial_grid) #Start frontier with initial_grid/state
 
         while True:
-            current = self.find_lowest_f() #Current node as one with the lowest f_cost
-            self.remove_current_open(current) #Remove current from open
-            self.closed.append(current) #Add current to closed
+            ongoing = self.find_lowest_f() #ongoing node as one with the lowest f_cost
+            self.remove_ongoing_frontier(ongoing) #Remove ongoing from open
+            self.explored.append(ongoing) #Add ongoing to closed
 
             #Check if goal
-            if current.check_if_goal():
-                gui.replay(self.open, self.closed, False, True)
+            if ongoing.check_if_goal():
+                #Do a final replay
+                gui.replay(self.frontier, self.explored, False)
                 utils.cls()
-                gui.main(current)
+
+                #Display final state
+                gui.main(ongoing)
+
+                #Notify user for Goal has been reached.
                 print("\nGOAL REACHED!")
+                
+                #Return to driver
                 input("Press any to key to proceed to complete replay...")
-                break #Returns to driver
+                break
 
-            for neighbor in current.neighbor_bot(): #Check for neighbors of current
-                if neighbor == None:
+            #Check for adjacent tiles of the ongoing bot
+            for adjacent in ongoing.bot_adjacent(): 
+                if adjacent == None: #Skip if cannot move on adjacent
                     continue
-                new_grid = self.new_grid(current, neighbor[0], neighbor[1]) #Create a new grid for the neighbor
-                if new_grid != None or self.find_in_open(new_grid) == -1: #Skips the out of bounds and walls
-                    #print(new_grid.get_costs())
-                    #print("Current: ", current.locate_bot(), ", Neighbor: ", neighbor, " ", self.find_in_closed(new_grid), new_grid.f_cost, current.f_cost)
-                    if self.find_in_closed(new_grid) == -1: #Check if not a duplicate
-                        if new_grid.f_cost < current.f_cost or self.find_in_open(new_grid) == -1:
-                            self.open.append(new_grid)                            
-            gui.replay(self.open, self.closed)
+                new_grid = self.new_grid(ongoing, adjacent[0], adjacent[1]) #Create a new grid for the adjacent
+                if new_grid != None or self.find_in_frontier(new_grid) == -1: #Skips the out of bounds and walls
+                    if self.find_in_explored(new_grid) == -1: #Check if not a duplicate
+                        if new_grid.f_cost < ongoing.f_cost or self.find_in_frontier(new_grid) == -1: #Check if cost of adjacent is less or not in frontier
+                            self.frontier.append(new_grid)   
+
+            #Conduct replay on how move turned out                         
+            gui.replay(self.frontier, self.explored)
     
-    def test_print_open(self):
-        for o in self.open:
-            o.test_print()
-
-    def test_print_closed(self):
-        for c in self.closed:
-            c.test_print()
-
-    def remove_current_closed(self, current:grid):
-        #return None
-        idx = self.find_in_open(current)
-        #print("closed idx: ", idx)
+    #Remove a given grid from explored list
+    def remove_ongoing_explored(self, ongoing:grid):
+        idx = self.find_in_frontier(ongoing)
         if idx > -1:
-            self.closed.pop(idx)
+            self.explored.pop(idx)
             
-    def remove_current_open(self, current:grid):
+    #Remove a given grid from frontier list    
+    def remove_ongoing_frontier(self, ongoing:grid):
         #return None
-        idx = self.find_in_open(current)
+        idx = self.find_in_frontier(ongoing)
         #print("open idx: ", idx)
         if idx > -1:
-            self.open.pop(idx)
+            self.frontier.pop(idx)
 
-    #Creates a new grid from the current grid where its bot is then immediately updated.
-    def new_grid(self, current:grid, x:int, y:int):
-        new_grid = copy.deepcopy(current) #Using = alone is just reference 
+    #Creates a new grid from the ongoing grid where its bot is then immediately updated.
+    def new_grid(self, ongoing:grid, x:int, y:int):
+        new_grid = copy.deepcopy(ongoing) #Using = alone is just reference 
         new_grid.update_bot(x,y)
         return new_grid
 
     #Check if a new_grid item is already found in the open list of states
-    #Checks if pos of new_grid's bot is found on any item in self.open
-    def find_in_open(self, new_grid: grid):
-        for o in range(len(self.open)):
-            if self.open[o].locate_bot() == new_grid.locate_bot():
+    #Checks if pos of new_grid's bot is found on any item in self.frontier
+    def find_in_frontier(self, new_grid: grid):
+        for o in range(len(self.frontier)):
+            if self.frontier[o].locate_bot() == new_grid.locate_bot():
                 return o
         return -1
 
     #Check if a new_grid item is already found in the closed list of states
-    #Checks if pos of new_grid's bot is found on any item in self.closed
-    def find_in_closed(self, new_grid:grid):
-        for c in range(len(self.closed)):
-            if self.closed[c].locate_bot() == new_grid.locate_bot():
+    #Checks if pos of new_grid's bot is found on any item in self.explored
+    def find_in_explored(self, new_grid:grid):
+        for c in range(len(self.explored)):
+            if self.explored[c].locate_bot() == new_grid.locate_bot():
                 return c
         return -1
-
-    def heuristic(self):
-        return None

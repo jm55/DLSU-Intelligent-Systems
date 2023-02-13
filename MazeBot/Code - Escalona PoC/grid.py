@@ -41,7 +41,7 @@ class grid:
 
     #Build the grid data be forming the basic 
     def create_grid(self, raw_data):
-        raw_data = ['....G', '.####', '...#S', '.#.#.', '.#...'] #Temporary copy
+        #raw_data = ['....G', '.####', '...#S', '.#.#.', '.#...'] #Temporary copy
         tiles = []
 
         if type(raw_data) != list:
@@ -59,7 +59,7 @@ class grid:
 
     #Returns list of bot's neighbors
     #Excludes neighbors that are invalid (exceeds grid limits) or is a wall
-    def neighbor_bot(self):
+    def bot_adjacent(self):
         x = self.locate_bot()[0]
         y = self.locate_bot()[1]
         traversable = [[x,y-1],[x-1,y],[x,y+1],[x+1,y]]
