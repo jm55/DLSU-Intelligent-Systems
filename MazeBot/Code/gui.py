@@ -1,7 +1,7 @@
 def header():
     print("".center(40,"="))
-    print("CSINTSY".center(40," "))
-    print("MazeBot".center(40," "))
+    print("MazeBot: MCO1".center(40," "))
+    print("CSINTSY S14".center(40," "))
     print("Cruzada, Escalona, Francisco, Loyola".center(40," "))
     print("".center(40,"="))
 
