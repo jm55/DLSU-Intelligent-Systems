@@ -1,5 +1,7 @@
 import os
-import re
+import datetime
+import codecs
+
 from objects import *
 global dimension
 
@@ -48,6 +50,27 @@ def readfile(filename):
         for row in maze_contents:
             maze.append(row.strip())
     return maze
+
+def save_file(printable:list):
+    filename = str(datetime.datetime.utcnow())
+    ctr = 0
+    with codecs.open(filename.replace(':','-')+".txt", "w", "utf-8") as output_file:
+        output_file.write("".center(40,"=")  + "\n")
+        output_file.write("MazeBot: MCO1".center(40," ")  + "\n")
+        output_file.write("CSINTSY S14".center(40," ")  + "\n")
+        output_file.write("Cruzada, Escalona, Francisco, Loyola".center(40," ")  + "\n")
+        output_file.write("".center(40,"=")  + "\n")
+        output_file.write("")
+        output_file.write("\nResulting Grid Movement:\n")
+        output_file.write(printable[0])
+        output_file.write("\nResulting Grid Movement (by  Coordinates):\n")
+        for p in printable[1]:
+            output_file.write(str(p)  + " ")
+            ctr += 1
+            if ctr == 6:
+                ctr = 0
+                output_file.write("\n")
+        output_file.close()
 
 def cls():
     """Execute 'cls' command on Command Prompt"""

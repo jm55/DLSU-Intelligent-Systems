@@ -51,8 +51,8 @@ class grid:
     def get_size(self):
         return len(self.tiles)
     
+    #Returns a tile object based on the given value
     def get_tile(self, value:chr):
-        """Returns a tile object based on the given value"""
         x = 0
         y = 0
         for row in self.tiles:
@@ -62,25 +62,21 @@ class grid:
                 y += 1       
             y = 0
             x += 1
-    def get_type(self, x:int, y:int):
-        """Returns the type of the tile in the grid"""
+    
+    #Returns the type of the tile in the grid
+    def get_type(self, x:int, y:int):   
         return self.tiles[x][y].type
     
+    #Checks if the tile coordinate for an action is valid and appends it to the action list
     def check_action(self, x:int, y:int, actions:list, parent_pos):
-        """Checks if the tile coordinate for an action is valid and appends it to the action list"""
         if self.get_type(x, y) != '#':
             actions.append(self.tiles[x][y])
-            #print(f"Parent: {self.tiles[x][y].parent}")
             if self.tiles[x][y].parent == None and self.tiles[x][y].type != "S":
                 self.tiles[x][y].parent = self.tiles[parent_pos[0]][parent_pos[1]]
-                #print(f"Parent: {self.tiles[x][y].parent}")
-            #print((x, y))
-            
+    
+    #Returns a list of valid tile objects to explore 
     def get_actions(self, tile:tile):
         actions = []
-        """Returns a list of valid tile objects to explore"""
-        #print(f"Valid actions for tile ({tile.x}, {tile.y}):")
-        
         if tile.x-1 >= 0:
             self.check_action(tile.x-1, tile.y, actions, tile.get_pos())   
         if tile.y-1 >= 0:
@@ -89,12 +85,9 @@ class grid:
             self.check_action(tile.x+1, tile.y, actions, tile.get_pos())
         if tile.y+1 < len(self.tiles):  
             self.check_action(tile.x, tile.y+1, actions, tile.get_pos()) 
-
         return actions
-
-    #Update position of 'bot'; Assumes that landing location is allowed/valid
-    #Note that this is just the representation of the bot on the grid. The logic behind the bot's state selection is still different from here.
-    #Every call of the update bot represents change in the g_cost/move count.
+    
+    #Update bot's position given it's new x and y pos
     def update_bot(self, x:int,y:int):
         b_loc = self.locate_bot()
         s_loc = self.locate_s()
@@ -114,27 +107,8 @@ class grid:
             self.tiles[x][y].type = 'GB'
         else:
             self.tiles[x][y].type = 'B'
-
-        #self.g_cost += 1
-        #self.compute_distances()
-        #self.compute_costs()
-
-    def compute_costs(self):
-        self.h_cost = self.get_bot().g_dist
-        self.f_cost = self.g_cost + self.h_cost
-
-    #Compute distances of tiles from S and G
-    def compute_distances(self):
-        size = self.get_size()
-        s_loc = self.locate_s()
-        g_loc = self.locate_g()
-
-        for y in range(size):
-            for x in range(size):
-                self.tiles[y][x].dist_s(s_loc[0], s_loc[1])
-                self.tiles[y][x].dist_g(g_loc[0], g_loc[1])
-
-     #Locate the Goal assuming that tiles are not empty
+    
+    #Locate the Goal assuming that tiles are not empty
     def locate_g(self):
         if len(self.tiles) == 0:
             return None
@@ -142,7 +116,7 @@ class grid:
             for col in row:
                 if col.isGoal():
                     return col.get_coor()
-
+    
     #Locate the Bot assuming that tiles are not empty
     def locate_bot(self):
         if len(self.tiles) == 0:
@@ -151,7 +125,7 @@ class grid:
             for col in row:
                 if col.isBot():
                     return col.get_coor()
-
+    
     #Locate the Start assuming that tiles are not empty
     def locate_s(self):
         if len(self.tiles) == 0:
@@ -160,11 +134,22 @@ class grid:
             for col in row:
                 if col.isStart():
                     return col.get_coor()
-                
-     #Get Bot Tile Object
+    
+    #Get Bot Tile Object
     def get_bot(self):
         b_loc = self.locate_bot()
         return self.tiles[b_loc[0]][b_loc[1]]
+    
+    #Get grid as string
+    def grid_as_string(self):
+        output = ""
+        size = self.get_size()
+        for y in range(size):
+            for x in range(size):
+                output += self.get_tiles()[x][y].type + " "
+            output += "\n"
+        return output
+
             
 class bot:
     def __init__(self, pos=None):

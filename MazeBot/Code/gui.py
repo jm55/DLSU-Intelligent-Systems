@@ -10,6 +10,13 @@ def ask_file():
     else:
         return filename
 
+def ask_save_file():
+    entry = input("\nExit choices:\nS/s - Save Output\nAny Key - Exit without Saving Output\nEnter: ")
+    if entry.lower() == 's':
+        return True
+    else:
+        return False
+
 def print_path(grid:grid, path:list):
     prev_pos = path[0].get_pos()
     pos = []
@@ -27,6 +34,7 @@ def print_path(grid:grid, path:list):
     print(pos)
     print("\nRecommended Path Direction:")
     print(direction)
+    return [grid.grid_as_string(), pos, direction]
 
 #Prints the major components of a grid printout
 def main(grid:grid, frontier:list, explored:list, cont:bool=True):
@@ -81,3 +89,4 @@ def header():
     print("CSINTSY S14".center(40," "))
     print("Cruzada, Escalona, Francisco, Loyola".center(40," "))
     print("".center(40,"="))
+    print("")

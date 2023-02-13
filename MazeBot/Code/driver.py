@@ -12,7 +12,9 @@ def main():
     grid.tiles[bot_loc[0]][bot_loc[1]].type = 'SB'
 
     path = astar(grid)
-    gui.print_path(grid, path)
+    printable = gui.print_path(grid, path)
+    if gui.ask_save_file():
+        utils.save_file(printable)
 
 def chk():
     print("This is driver.py")
