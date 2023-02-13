@@ -2,9 +2,6 @@ from objects import *
 import utilities as utils
 import time
 
-def header():
-    print("")
-
 def ask_file():
     header()
     filename = input("Enter filename (include .txt; Leave empty for default file \'maze.txt\'):")
@@ -77,3 +74,10 @@ def draw_grid(grid:grid, bot_x:int=-1, bot_y:int=-1):
             output += grid.get_tiles()[x][y].type + " "
         output += "\n"
     print(output)
+
+def header():
+    print("".center(40,"="))
+    print("MazeBot: MCO1".center(40," "))
+    print("CSINTSY S14".center(40," "))
+    print("Cruzada, Escalona, Francisco, Loyola".center(40," "))
+    print("".center(40,"="))
