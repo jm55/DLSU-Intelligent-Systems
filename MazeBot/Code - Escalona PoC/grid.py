@@ -71,13 +71,10 @@ class grid:
                     traversable[s] = None
         return traversable
     
-    #@TODO
     def check_if_goal(self):
-        '''
-        Check if the grid is already a goal or not.
-        Search for SB or if locate_bot() == locate_g() 
-        '''
-        return None
+        if self.locate_bot() == self.locate_g():
+            return True
+        return False
 
     #Update position of 'bot'; Assumes that landing location is allowed/valid
     #Note that this is just the representation of the bot on the grid. The logic behind the bot's state selection is still different from here.
