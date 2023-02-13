@@ -4,7 +4,7 @@ import time
 
 def ask_file():
     header()
-    filename = input("Enter filename (include .txt; Leave empty for default file \'maze.txt\'):")
+    filename = input("Enter filename (include .txt; Leave empty for default file \'maze.txt\'): ")
     if filename == "":
         return "maze.txt"
     else:
@@ -17,7 +17,19 @@ def ask_save_file():
     else:
         return False
 
+def ask_rapid_search():
+    entry = input("Enable rapid search (Y/N): ")
+    if entry.lower() == 'y':
+        return True
+    else:
+        return False    
+
 def print_path(grid:grid, path:list):
+    if len(path) == 0:
+        header()
+        draw_grid(grid)
+        print("NO RECOMMENDED PATH DETECTED FOR GIVEN MAZE!")
+        return [grid.grid_as_string(),[],[]]
     prev_pos = path[0].get_pos()
     pos = []
     direction = []
@@ -45,7 +57,7 @@ def main(grid:grid, frontier:list, explored:list, cont:bool=True):
         print("Bot's Location: ", pos)
         draw_grid(grid, pos[0], pos[1])
         print_lists("Bot's Frontier: ", frontier)
-        print_lists("Bot's Explored: ", explored)   
+        print_lists("Bot's Explored: ", explored)
         time.sleep(0.1)
     if cont:
         input("\n\nPress Enter to continue...")

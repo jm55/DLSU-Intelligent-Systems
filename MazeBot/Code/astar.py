@@ -2,7 +2,7 @@ from objects import *
 import utilities as utils
 import gui
 
-def astar(grid):
+def astar(grid, rapid_search:bool=False):
     utils.cls()
     frontier = []
     explored = []
@@ -64,7 +64,7 @@ def astar(grid):
             # Append to frontier if the current action tile is not present
             if not is_frontier: 
                 frontier.append(action_tile)
-
-        gui.main(grid, frontier, explored)
+        if not rapid_search:
+            gui.main(grid, frontier, explored, not rapid_search)
     # If a path leading to the goal tile is not found, return an empty list     
     return []
