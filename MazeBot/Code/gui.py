@@ -49,18 +49,19 @@ def print_path(grid:grid, path:list):
     return [grid.grid_as_string(), pos, direction]
 
 #Prints the major components of a grid printout
-def main(grid:grid, frontier:list, explored:list, cont:bool=True):
-    for e in explored:
-        utils.cls()
-        header()
-        pos = e.get_pos()
-        print("Bot's Location: ", pos)
-        draw_grid(grid, pos[0], pos[1])
-        print_lists("Bot's Frontier: ", frontier)
-        print_lists("Bot's Explored: ", explored)
-        time.sleep(0.1)
-    if cont:
-        input("\n\nPress Enter to continue...")
+def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=True):
+    if not rapid_search:
+        for e in explored:
+            utils.cls()
+            header()
+            pos = e.get_pos()
+            print("Bot's Location: ", pos)
+            draw_grid(grid, pos[0], pos[1])
+            print_lists("Bot's Frontier: ", frontier)
+            print_lists("Bot's Explored: ", explored)
+            time.sleep(0.1)
+        if cont:
+            input("\n\nPress Enter to continue...")
 
 def print_direction_grid(grid:grid, pos:list, direction:list):
     #draw_grid(grid)
