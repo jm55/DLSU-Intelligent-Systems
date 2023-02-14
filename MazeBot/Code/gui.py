@@ -31,11 +31,12 @@ def ask_rapid_search():
     else:
         return False    
 
-def print_path(grid:grid, path:list):
+def print_path(grid:grid, path:list, time_elapsed:float):
     if len(path) == 0:
         header()
         draw_grid(grid)
         print("NO RECOMMENDED PATH DETECTED FOR GIVEN MAZE!")
+        print("Time taken: " + str(time_elapsed) + "s")
         return [grid.grid_as_string(),[],[]]
     prev_pos = path[0].get_pos()
     pos = []
@@ -53,6 +54,7 @@ def print_path(grid:grid, path:list):
     print(pos)
     print("\nRecommended Path Direction:")
     print(direction)
+    print("Time taken: " + str(time_elapsed) + "s")
     return [grid.grid_as_string(), pos, direction]
 
 #Prints the major components of a grid printout

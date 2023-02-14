@@ -1,3 +1,5 @@
+import time
+
 import utilities as utils
 import gui
 from astar import astar
@@ -15,8 +17,9 @@ def main():
     bot_loc = grid.locate_s()
     grid.tiles[bot_loc[0]][bot_loc[1]].type = 'SB'
 
+    start = time.time()
     path = astar(grid, rapid_search, manual_cont)
-    printable = gui.print_path(grid, path)
+    printable = gui.print_path(grid, path, time.time()-start)
     if gui.ask_save_file():
         utils.save_file(printable)
 
