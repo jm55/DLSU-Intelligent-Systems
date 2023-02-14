@@ -31,12 +31,24 @@ def astar(grid, rapid_search:bool=False, cont:bool=False):
         
         # If the goal is found
         if current_tile == end_tile:
+            final_path = []
+            current = current_tile
+            # Iterate to find the path taken
+            while current is not None:
+                final_path.append(current)
+                current = current.parent
+            return final_path[::-1]
+        
+        '''
+        # If the goal is found
+        if current_tile == end_tile:
             utils.cls()
             gui.main(grid, frontier, explored, False, False)
             print("Goal Reached!")
             input("Press Enter to continue...")
             return explored
-                
+        '''
+
         # Get the actions
         actions = grid.get_actions(current_tile)
 
