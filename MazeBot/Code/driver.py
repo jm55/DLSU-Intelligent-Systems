@@ -7,12 +7,15 @@ def main():
 
     grid = utils.read_maze(gui.ask_file())
     rapid_search = gui.ask_rapid_search()
+    manual_cont = False
+    if not rapid_search:
+        manual_cont = gui.ask_manual_cont()
 
     #inject bot at grid
     bot_loc = grid.locate_s()
     grid.tiles[bot_loc[0]][bot_loc[1]].type = 'SB'
 
-    path = astar(grid, rapid_search)
+    path = astar(grid, rapid_search, manual_cont)
     printable = gui.print_path(grid, path)
     if gui.ask_save_file():
         utils.save_file(printable)

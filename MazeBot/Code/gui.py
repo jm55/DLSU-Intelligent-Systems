@@ -17,6 +17,13 @@ def ask_save_file():
     else:
         return False
 
+def ask_manual_cont():
+    entry = input("Enable manual progression (Y/N): ")
+    if entry.lower() == 'y':
+        return True
+    else:
+        return False  
+
 def ask_rapid_search():
     entry = input("Enable rapid search (Y/N): ")
     if entry.lower() == 'y':

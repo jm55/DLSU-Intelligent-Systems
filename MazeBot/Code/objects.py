@@ -84,7 +84,7 @@ class grid:
         if tile.x+1 < len(self.tiles):
             self.check_action(tile.x+1, tile.y, actions, tile.get_pos())
         if tile.y+1 < len(self.tiles):  
-            self.check_action(tile.x, tile.y+1, actions, tile.get_pos()) 
+            self.check_action(tile.x, tile.y+1, actions, tile.get_pos())
         return actions
     
     #Update bot's position given it's new x and y pos
