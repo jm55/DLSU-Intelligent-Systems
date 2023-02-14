@@ -19,7 +19,17 @@ def main():
 
     start = time.time()
     path = astar(grid, rapid_search, manual_cont)
-    printable = gui.print_path(grid, path, time.time()-start)
+    end = time.time()
+
+    replay = True
+    while replay:
+        replay = gui.replay(grid, path)
+
+    printable = None
+    if not rapid_search:
+        printable = gui.print_path(grid, path, None)
+    else:
+        printable = gui.print_path(grid, path, end-start)
     if gui.ask_save_file():
         utils.save_file(printable)
 

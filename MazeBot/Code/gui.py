@@ -11,7 +11,7 @@ def ask_file():
         return filename
 
 def ask_save_file():
-    entry = input("\nExit choices:\nS/s - Save Output\nAny Key - Exit without Saving Output\nEnter: ")
+    entry = input("\nExit choices:\nS/s - Save Output\nAny Key - Exit without Saving Output\n\nEnter: ")
     if entry.lower() == 's':
         return True
     else:
@@ -31,12 +31,27 @@ def ask_rapid_search():
     else:
         return False    
 
+def replay(grid:grid, path:list):
+    pos = []
+    for p in path:
+        pos.append(p.get_pos())
+    for p in path:
+        utils.cls()
+        header()
+        print("Bot Coordinate:", p.get_pos())
+        draw_grid(grid,p.get_pos()[0], p.get_pos()[1])
+        time.sleep(0.25)
+    print("Recommended Path Coordinate: ", pos)
+    if input("Enter Y/N to replay: ").lower() == 'n':
+        return False
+    return True
+
 def print_path(grid:grid, path:list, time_elapsed:float):
     if len(path) == 0:
         header()
         draw_grid(grid)
         print("NO RECOMMENDED PATH DETECTED FOR GIVEN MAZE!")
-        print("Time taken: " + str(time_elapsed) + "s")
+        print("\nTime taken: " + str(time_elapsed) + "s")
         return [grid.grid_as_string(),[],[]]
     prev_pos = path[0].get_pos()
     pos = []
@@ -54,7 +69,7 @@ def print_path(grid:grid, path:list, time_elapsed:float):
     print(pos)
     print("\nRecommended Path Direction:")
     print(direction)
-    print("Time taken: " + str(time_elapsed) + "s")
+    print("\nTime taken: " + str(time_elapsed) + "s")
     return [grid.grid_as_string(), pos, direction]
 
 #Prints the major components of a grid printout
@@ -63,12 +78,13 @@ def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=T
         for e in explored:
             utils.cls()
             header()
+            print("NOTICE: THIS DOES NOT SHOW THE OPTIMAL PATH YET\nAS THE UI ITERATES THROUGH THE EXPLORED LIST.\n")
             pos = e.get_pos()
             print("Bot's Location: ", pos)
             draw_grid(grid, pos[0], pos[1])
             print_lists("Bot's Frontier: ", frontier)
             print_lists("Bot's Explored: ", explored)
-            time.sleep(0.1)
+            time.sleep(0.05)
         if cont:
             input("\n\nPress Enter to continue...")
 
