@@ -62,7 +62,9 @@ def astar(grid, rapid_search:bool=False, cont:bool=False):
             for frontier_tile in frontier:
                 # If the action tile is present and its total cost is greater than the one in the frontier, 
                 # do not append the action tile to the frontier list
-                if action_tile == frontier_tile and action_tile.s_dist > frontier_tile.s_dist and action_tile.g_dist < frontier_tile.g_dist:
+                # if action_tile == frontier_tile and action_tile.s_dist > frontier_tile.s_dist and action_tile.g_dist < frontier_tile.g_dist:
+                if action_tile == frontier_tile and action_tile.priority < frontier_tile.priority:
+                    frontier_tile.priority = action_tile.priority
                     is_frontier = True
                     break
             

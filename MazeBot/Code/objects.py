@@ -71,7 +71,7 @@ class grid:
     def check_action(self, x:int, y:int, actions:list, parent_pos):
         if self.get_type(x, y) != '#':
             actions.append(self.tiles[x][y])
-            if self.tiles[x][y].parent == None and self.tiles[x][y].type != "S":
+            if self.tiles[x][y].parent == None and self.tiles[x][y].type != "S" and self.tiles[x][y].type != "SB":
                 self.tiles[x][y].parent = self.tiles[parent_pos[0]][parent_pos[1]]
     
     #Returns a list of valid tile objects to explore 
