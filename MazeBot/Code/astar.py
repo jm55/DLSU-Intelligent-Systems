@@ -68,7 +68,7 @@ def astar(grid, rapid_search:bool=False, cont:bool=False):
                 continue
             # Compute for the priority using the total cost from starting tile (s_dist) and manhattan distance to the 
             # Goal tile (g_dist)
-            action_tile.s_dist = current_tile.s_dist + 1
+            action_tile.dist_s(current_tile)
             action_tile.dist_g(end_tile.x,end_tile.y)
             action_tile.priority = action_tile.s_dist + action_tile.g_dist
 

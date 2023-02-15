@@ -8,9 +8,8 @@ class tile:
         self.type = tile_type
         self.parent = None
     
-    def dist_s(self, s_x: int, s_y:int):
-        """Compute tile's distance from s[x,y]"""
-        self.s_dist = get_manhattan((self.x, self.y), (s_x, s_y))
+    def dist_s(self, prev_tile):
+        self.s_dist = prev_tile.s_dist + 1
         return self.s_dist
     
     def dist_g(self, g_x:int, g_y:int):
