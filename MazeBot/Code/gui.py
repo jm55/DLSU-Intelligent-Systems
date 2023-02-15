@@ -33,6 +33,8 @@ def ask_rapid_search():
 
 def replay(grid:grid, path:list):
     pos = []
+    if len(path) == 0 or path == None:
+        return False
     for p in path:
         pos.append(p.get_pos())
     for p in path:
@@ -44,14 +46,15 @@ def replay(grid:grid, path:list):
     print("Recommended Path Coordinate: ", pos)
     if input("Enter Y/N to replay: ").lower() == 'n':
         return False
-    return True
+    else:
+        return True
 
 def print_path(grid:grid, path:list, time_elapsed:float):
     if len(path) == 0:
         header()
         draw_grid(grid)
         print("NO RECOMMENDED PATH DETECTED FOR GIVEN MAZE!")
-        print("\nTime taken: " + str(time_elapsed) + "s")
+        print("\nA* Search Time: " + str(time_elapsed) + "s")
         return [grid.grid_as_string(),[],[]]
     prev_pos = path[0].get_pos()
     pos = []
@@ -75,16 +78,24 @@ def print_path(grid:grid, path:list, time_elapsed:float):
 #Prints the major components of a grid printout
 def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=True):
     if not rapid_search:
+        utils.cls()
+        header()
+        print("A* Searching...\n")
+        print("NOTICE: THIS DOES NOT SHOW THE OPTIMAL PATH YET\nAS THE UI ITERATES THROUGH THE EXPLORED LIST.\n")
         for e in explored:
-            utils.cls()
-            header()
-            print("NOTICE: THIS DOES NOT SHOW THE OPTIMAL PATH YET\nAS THE UI ITERATES THROUGH THE EXPLORED LIST.\n")
             pos = e.get_pos()
-            print("Bot's Location: ", pos)
-            draw_grid(grid, pos[0], pos[1])
-            print_lists("Bot's Frontier: ", frontier)
-            print_lists("Bot's Explored: ", explored)
-            time.sleep(0.05)
+            if grid.tiles[pos[0]][pos[1]].type == ".": 
+                grid.tiles[pos[0]][pos[1]].type = 'E'
+            elif "F" in grid.tiles[pos[0]][pos[1]].type:
+                grid.tiles[pos[0]][pos[1]].type += "E"
+        for f in frontier:
+            pos = f.get_pos()
+            if grid.tiles[pos[0]][pos[1]].type == ".": 
+                grid.tiles[pos[0]][pos[1]].type = 'F'
+        draw_grid(grid)
+        print_lists("Bot's Frontier: ", frontier)
+        print_lists("Bot's Explored: ", explored)
+        time.sleep(0.25)
         if cont:
             input("\n\nPress Enter to continue...")
 

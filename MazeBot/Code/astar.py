@@ -1,3 +1,5 @@
+import copy
+
 from objects import *
 import utilities as utils
 import gui
@@ -84,7 +86,7 @@ def astar(grid, rapid_search:bool=False, cont:bool=False):
             if not is_frontier: 
                 frontier.append(action_tile)
         if not rapid_search:
-            gui.main(grid, frontier, explored, rapid_search, cont)
+            gui.main(copy.deepcopy(grid), frontier, explored, rapid_search, cont)
     # If a path leading to the goal tile is not found, return an empty list     
     utils.cls()
     return []
