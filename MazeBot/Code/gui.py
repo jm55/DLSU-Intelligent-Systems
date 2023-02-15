@@ -10,12 +10,14 @@ def ask_file():
     else:
         return filename
 
-def ask_save_file():
-    entry = input("\nExit choices:\nS/s - Save Output\nAny Key - Exit without Saving Output\n\nEnter: ")
+def ask_post_search():
+    entry = input("\nMenu:\nS/s - Save Output\nX/x - Exit without Saving Output\nEnter - Repeat Runtime\n\nEnter Selection: ")
     if entry.lower() == 's':
-        return True
+        return 1
+    elif entry.lower() == 'x':
+        return 0
     else:
-        return False
+        return 2
 
 def ask_manual_cont():
     entry = input("Enable manual progression (Y/N): ")
@@ -40,10 +42,10 @@ def replay(grid:grid, path:list):
     for p in path:
         utils.cls()
         header()
-        print("Bot Coordinate:", p.get_pos())
         draw_grid(grid,p.get_pos()[0], p.get_pos()[1])
-        time.sleep(0.25)
-    print("Recommended Path Coordinate: ", pos)
+        print("Bot Coordinate:", p.get_pos())
+        print_lists("Recommended Path Coordinate:", path)
+        time.sleep(0.2)
     if input("Enter Y/N to replay: ").lower() == 'n':
         return False
     else:
@@ -68,11 +70,9 @@ def print_path(grid:grid, path:list, time_elapsed:float):
     print("Recommended Path Direction Grid:")
     print_direction_grid(grid, pos, direction)
     print("Total Move Count: " + str(len(path)))
-    print("\nRecommended Path Coordinate:")
-    print(pos)
-    print("\nRecommended Path Direction:")
-    print(direction)
-    print("\nTime taken: " + str(time_elapsed) + "s")
+    print_lists("Recommended Path Coordinate: ", pos)
+    print_lists("Recommended Path Directions: ", direction)
+    print("Time taken: " + str(time_elapsed) + "s")
     return [grid.grid_as_string(), pos, direction]
 
 #Prints the major components of a grid printout
@@ -112,7 +112,10 @@ def print_lists(label:str, list:list):
     ctr = 0
     br_limit = 6
     for l in list:
-        output += str(l.get_pos()) + " "
+        if type(l) == tile:
+            output += str(l.get_pos()) + " "
+        else:
+            output += str(l).strip() + " "
         ctr += 1
         if ctr >= br_limit:
             ctr = 0
@@ -125,8 +128,15 @@ def draw_grid(grid:grid, bot_x:int=-1, bot_y:int=-1):
     if bot_x > -1 and bot_y > -1:
         grid.update_bot(bot_x,bot_y)
     size = grid.get_size()
-    output = ""
+    output = "   "
+    for x in range(size): 
+        output += str(x) + " "
+    output += "\n   "
+    for x in range(size): 
+        output += "- "
+    output += "\n"
     for y in range(size):
+        output += str(y) + "| "
         for x in range(size):
             output += grid.get_tiles()[x][y].type + " "
         output += "\n"
