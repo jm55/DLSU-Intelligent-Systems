@@ -138,17 +138,17 @@ def draw_grid(grid:grid, bot_x:int=-1, bot_y:int=-1):
     if bot_x > -1 and bot_y > -1:
         grid.update_bot(bot_x,bot_y)
     size = grid.get_size()
-    output = "   "
+    output = "    "
     for x in range(size): 
-        output += str(x) + " "
+        output += str(x).ljust(2," ") + " "
     output += "\n   "
     for x in range(size): 
-        output += "- "
+        output += "-".center(3," ")
     output += "\n"
     for y in range(size):
-        output += str(y) + "| "
+        output += str(y).ljust(2," ") + "| "
         for x in range(size):
-            output += grid.get_tiles()[x][y].type + " "
+            output += grid.get_tiles()[x][y].type.ljust(3," ")
         output += "\n"
     print(output)
 
