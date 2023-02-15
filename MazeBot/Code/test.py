@@ -45,7 +45,7 @@ for i in range(len(test_files)):
     grid.tiles[bot_loc[0]][bot_loc[1]].type = 'SB'
 
     start = time.time()
-    path = astar.astar(grid, rapid_search, manual_cont)
+    path = astar.astar(grid, rapid_search, manual_cont, True)
     end = time.time()
     
     if (len(path) > 0) == test_results[i]:
