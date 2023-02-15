@@ -4,8 +4,8 @@ from objects import *
 import utilities as utils
 import gui
 
-def astar(grid, rapid_search:bool=False, cont:bool=False):
-    if rapid_search:
+def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
+    if rapid_search and not test:
         utils.cls()
         gui.header()
         print("Searching...")
@@ -40,16 +40,6 @@ def astar(grid, rapid_search:bool=False, cont:bool=False):
                 final_path.append(current)
                 current = current.parent
             return final_path[::-1]
-        
-        '''
-        # If the goal is found
-        if current_tile == end_tile:
-            utils.cls()
-            gui.main(grid, frontier, explored, False, False)
-            print("Goal Reached!")
-            input("Press Enter to continue...")
-            return explored
-        '''
 
         # Get the actions
         actions = grid.get_actions(current_tile)
