@@ -77,6 +77,8 @@ def print_path(grid:grid, path:list, time_elapsed:float):
 
 #Prints the major components of a grid printout
 def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=True):
+    frontier = list(dict.fromkeys(frontier)) #Remove duplicates from explored
+    explored = list(dict.fromkeys(explored)) #Removed duplicates from 
     if not rapid_search:
         utils.cls()
         header()

@@ -75,6 +75,9 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
             # Append to frontier if the current action tile is not present
             if not is_frontier: 
                 frontier.append(action_tile)
+
+        frontier = list(dict.fromkeys(frontier)) #Remove duplicates from frontier
+        explored = list(dict.fromkeys(explored)) #Removed duplicates from explored
         if not rapid_search:
             gui.main(copy.deepcopy(grid), frontier, explored, rapid_search, cont)
     # If a path leading to the goal tile is not found, return an empty list     
