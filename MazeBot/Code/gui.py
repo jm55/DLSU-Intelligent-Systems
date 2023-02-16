@@ -77,6 +77,8 @@ def print_path(grid:grid, path:list, time_elapsed:float):
 
 #Prints the major components of a grid printout
 def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=True):
+    frontier = list(dict.fromkeys(frontier)) #Remove duplicates from explored
+    explored = list(dict.fromkeys(explored)) #Removed duplicates from 
     if not rapid_search:
         utils.cls()
         header()
@@ -93,11 +95,19 @@ def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=T
             if grid.tiles[pos[0]][pos[1]].type == ".": 
                 grid.tiles[pos[0]][pos[1]].type = 'F'
         draw_grid(grid)
-        print_lists("Bot's Frontier: ", frontier)
-        print_lists("Bot's Explored: ", explored)
-        time.sleep(0.25)
-        if cont:
+        if speedup(frontier, explored):
+            print("Display Speedup Mode\n")
+        print_lists("Bot's Frontier (" + str(len(frontier)) + "): ", frontier)
+        print_lists("Bot's Explored (" + str(len(explored)) + "): ", explored)
+        if speedup(frontier, explored):
+            time.sleep(0.01)
+        else:
+            time.sleep(0.25)
+        if cont and not speedup(frontier, explored):
             input("\n\nPress Enter to continue...")
+
+def speedup(frontier:list, explored:list):
+    return len(frontier) > 20 or len(explored) > 20
 
 def print_direction_grid(grid:grid, pos:list, direction:list):
     #draw_grid(grid)
@@ -110,7 +120,7 @@ def print_direction_grid(grid:grid, pos:list, direction:list):
 def print_lists(label:str, list:list):
     output = label
     ctr = 0
-    br_limit = 6
+    br_limit = 8
     for l in list:
         if type(l) == tile:
             output += str(l.get_pos()) + " "
@@ -128,17 +138,17 @@ def draw_grid(grid:grid, bot_x:int=-1, bot_y:int=-1):
     if bot_x > -1 and bot_y > -1:
         grid.update_bot(bot_x,bot_y)
     size = grid.get_size()
-    output = "   "
+    output = "    "
     for x in range(size): 
-        output += str(x) + " "
+        output += str(x).ljust(2," ") + " "
     output += "\n   "
     for x in range(size): 
-        output += "- "
+        output += "-".center(3," ")
     output += "\n"
     for y in range(size):
-        output += str(y) + "| "
+        output += str(y).ljust(2," ") + "| "
         for x in range(size):
-            output += grid.get_tiles()[x][y].type + " "
+            output += grid.get_tiles()[x][y].type.ljust(3," ")
         output += "\n"
     print(output)
 
