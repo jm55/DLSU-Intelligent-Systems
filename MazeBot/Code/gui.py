@@ -77,8 +77,8 @@ def print_path(grid:grid, path:list, time_elapsed:float):
 
 #Prints the major components of a grid printout
 def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=True):
-    frontier = list(dict.fromkeys(frontier)) #Remove duplicates from explored
-    explored = list(dict.fromkeys(explored)) #Removed duplicates from 
+    #frontier = list(dict.fromkeys(frontier)) #Remove duplicates from explored
+    #explored = list(dict.fromkeys(explored)) #Removed duplicates from 
     if not rapid_search:
         utils.cls()
         header()
@@ -95,15 +95,13 @@ def main(grid:grid, frontier:list, explored:list, rapid_search:bool, cont:bool=T
             if grid.tiles[pos[0]][pos[1]].type == ".": 
                 grid.tiles[pos[0]][pos[1]].type = 'F'
         draw_grid(grid)
-        if speedup(frontier, explored):
-            print("Display Speedup Mode\n")
+        
         print_lists("Bot's Frontier (" + str(len(frontier)) + "): ", frontier)
         print_lists("Bot's Explored (" + str(len(explored)) + "): ", explored)
-        if speedup(frontier, explored):
-            time.sleep(0.01)
-        else:
-            time.sleep(0.25)
-        if cont and not speedup(frontier, explored):
+        
+        time.sleep(0.25)
+        
+        if cont:
             input("\n\nPress Enter to continue...")
 
 def speedup(frontier:list, explored:list):
