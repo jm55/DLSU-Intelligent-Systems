@@ -39,7 +39,7 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
             while current is not None:
                 final_path.append(current)
                 current = current.parent
-            return final_path[::-1]
+            return [final_path[::-1], frontier, explored]
 
         # Get the actions
         actions = grid.get_actions(current_tile)

@@ -33,8 +33,11 @@ def ask_rapid_search():
     else:
         return False    
 
-def replay(grid:grid, path:list):
+def replay(grid:grid, results:list):
     pos = []
+    path = results[0]
+    frontier = results[1]
+    explored = results[2]
     if len(path) == 0 or path == None:
         return False
     for p in path:
@@ -44,14 +47,19 @@ def replay(grid:grid, path:list):
         header()
         draw_grid(grid,p.get_pos()[0], p.get_pos()[1])
         print("Bot Coordinate:", p.get_pos())
-        print_lists("Recommended Path Coordinate:", path)
+        print_lists("Recommended Path Coordinate: ", path)
+        print_lists("Total Frontier States ({:.0f}): ".format(len(frontier)), frontier)
+        print_lists("Total Explored States ({:.0f}): ".format(len(explored)), explored)
         time.sleep(0.2)
     if input("Enter Y/N to replay: ").lower() == 'n':
         return False
     else:
         return True
 
-def print_path(grid:grid, path:list, time_elapsed:float):
+def print_path(grid:grid, results: list, time_elapsed:float):
+    path = results[0]
+    frontier = results[1]
+    explored = results[2]
     if len(path) == 0:
         header()
         draw_grid(grid)
@@ -72,6 +80,8 @@ def print_path(grid:grid, path:list, time_elapsed:float):
     print("Total Move Count: " + str(len(path)))
     print_lists("Recommended Path Coordinate: ", pos)
     print_lists("Recommended Path Directions: ", direction)
+    print_lists("Total Frontier States ({:.0f}): ".format(len(frontier)), frontier)
+    print_lists("Total Explored States ({:.0f}): ".format(len(explored)), explored)
     print("Time taken: " + str(time_elapsed) + "s")
     return [grid.grid_as_string(), pos, direction]
 

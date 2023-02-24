@@ -26,10 +26,11 @@ def main():
             replay = gui.replay(grid, path)
 
         printable = None
-        if not rapid_search:
-            printable = gui.print_path(grid, path, None)
-        else:
-            printable = gui.print_path(grid, path, end-start)
+        elapsed = None
+        if rapid_search:
+            elapsed = end-start
+        printable = gui.print_path(grid, path, elapsed)
+        
         post_search = gui.ask_post_search()
         if post_search == 1:
             utils.save_file(printable)
