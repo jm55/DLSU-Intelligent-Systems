@@ -12,7 +12,6 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
 
     frontier = []
     explored = []
-    g = {}
     # Get the tile object of the starting and goal tile
     start_tile = grid.get_tile("S")
     end_tile = grid.get_tile("G")
@@ -75,6 +74,9 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
             # Append to frontier if the current action tile is not present
             if not is_frontier: 
                 frontier.append(action_tile)
+
+        #frontier = list(dict.fromkeys(frontier))
+        #explored = list(dict.fromkeys(explored))
 
         frontier = list(set(frontier))
         explored = list(set(explored))
