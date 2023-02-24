@@ -59,8 +59,8 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
             # Compute for the priority using the total cost from starting tile (s_dist) and manhattan distance to the 
             # Goal tile (g_dist)
             action_tile.dist_s(current_tile)
-            action_tile.dist_g(end_tile.x,end_tile.y)
-            action_tile.priority = action_tile.s_dist + action_tile.g_dist
+            action_tile.dist_g(end_tile)
+            action_tile.updatePriority()
 
             # Check if the action tiles is present in the frontier list
             for frontier_tile in frontier:
@@ -76,8 +76,8 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
             if not is_frontier: 
                 frontier.append(action_tile)
 
-        frontier = list(dict.fromkeys(frontier)) #Remove duplicates from frontier
-        explored = list(dict.fromkeys(explored)) #Removed duplicates from explored
+        frontier = list(set(frontier))
+        explored = list(set(explored))
         if not rapid_search:
             gui.main(copy.deepcopy(grid), frontier, explored, rapid_search, cont)
     # If a path leading to the goal tile is not found, return an empty list     
