@@ -60,11 +60,14 @@ def print_path(grid:grid, results: list, time_elapsed:float):
     path = results[0]
     frontier = results[1]
     explored = results[2]
-    if len(path) == 0:
+    if len(path) == 0 or path == None:
+        utils.cls()
         header()
         draw_grid(grid)
         print("NO RECOMMENDED PATH DETECTED FOR GIVEN MAZE!")
         print("\nA* Search Time: " + str(time_elapsed) + "s")
+        print_lists("Total Frontier States ({:.0f}): ".format(len(frontier)), frontier)
+        print_lists("Total Explored States ({:.0f}): ".format(len(explored)), explored)
         return [grid.grid_as_string(),[],[]]
     prev_pos = path[0].get_pos()
     pos = []

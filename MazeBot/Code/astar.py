@@ -81,4 +81,4 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
         if not rapid_search:
             gui.main(copy.deepcopy(grid), frontier, explored, rapid_search, cont)
     # If a path leading to the goal tile is not found, return an empty list     
-    return []
+    return [[], frontier, explored]
