@@ -23,7 +23,7 @@ rapid_search = True
 manual_cont = False
 test_files = [("test_1.txt", True), ("test_2.txt", False), ("test_3.txt", False), ("test_4.txt", False), ("test_5.txt", False), 
               ("test_6.txt", True), ("test_7.txt", True), ("test_8.txt", True), ("test_9.txt", True), ("test_10.txt", False), 
-              ("end_3.txt", True), ("end_4.txt", True), ("end_6.txt", True), ("end_8.txt", True), ("end_10.txt", True), 
+              ("test_11.txt", False), ("end_3.txt", True), ("end_4.txt", True), ("end_6.txt", True), ("end_8.txt", True), ("end_10.txt", True), 
               ("end_20.txt", True), ("end_30.txt", True), ("end_40.txt", True), ("end_50.txt", True), ("end_64.txt", True)] #Assumes to be placed in mazes folder
 results = []
 passed = 0
@@ -46,7 +46,7 @@ for l in range(laps):
         grid.tiles[bot_loc[0]][bot_loc[1]].type = 'SB'
 
         start = time.time()
-        path = astar.astar(grid, rapid_search, manual_cont, True)
+        path = astar.astar(grid, rapid_search, manual_cont, True)[0]
         end = time.time()
         
         if (len(path) > 0) == t[1]:
