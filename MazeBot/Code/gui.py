@@ -65,7 +65,8 @@ def print_path(grid:grid, results: list, time_elapsed:float):
         header()
         draw_grid(grid)
         print("NO RECOMMENDED PATH DETECTED FOR GIVEN MAZE!")
-        print("\nA* Search Time: " + str(time_elapsed) + "s")
+        if time_elapsed != None:
+            print("\nA* Search Time: " + str(time_elapsed) + "s")
         print_lists("Total Frontier States ({:.0f}): ".format(len(frontier)), frontier)
         print_lists("Total Explored States ({:.0f}): ".format(len(explored)), explored)
         return [grid.grid_as_string(),[],[]]
@@ -85,7 +86,8 @@ def print_path(grid:grid, results: list, time_elapsed:float):
     print_lists("Recommended Path Directions: ", direction)
     print_lists("Total Frontier States ({:.0f}): ".format(len(frontier)), frontier)
     print_lists("Total Explored States ({:.0f}): ".format(len(explored)), explored)
-    print("Time taken: " + str(time_elapsed) + "s")
+    if time_elapsed != None:
+        print("Time taken: " + str(time_elapsed) + "s")
     return [grid.grid_as_string(), pos, direction]
 
 #Prints the major components of a grid printout
