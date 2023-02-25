@@ -4,6 +4,9 @@ from objects import *
 import utilities as utils
 import gui
 
+def getPriority(tile:tile):
+    return tile.priority
+
 def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
     if rapid_search and not test:
         utils.cls()
@@ -80,6 +83,10 @@ def astar(grid, rapid_search:bool=False, cont:bool=False, test:bool=False):
 
         frontier = list(set(frontier))
         explored = list(set(explored))
+        
+        frontier.sort(key=getPriority, reverse=False)
+        explored.sort(key=getPriority, reverse=False)
+        
         if not rapid_search:
             gui.main(copy.deepcopy(grid), frontier, explored, rapid_search, cont)
     # If a path leading to the goal tile is not found, return an empty list     
