@@ -14,7 +14,7 @@ def print_results(results, passing_rate=None, lap=None):
     if lap != None:
         print("Lap: " + str(lap))
     for r in results:
-        print("File: " + r[0] + " Size: " + str(r[3]) + " (" + "{:.4f}".format(r[2]) + "s) = " + r[1])
+        print("File: " + r[0] + " Size: " + str(r[4]) + " Path Size: " + str(r[2]) + " ({:.4f}s) = ".format(r[3]) + r[1])
     if passing_rate != None:
         print("\nSuccess rate: " + "{:.2f}".format(passing_rate) + "%")
 
@@ -28,6 +28,7 @@ test_files = [("test_1.txt", True), ("test_2.txt", False), ("test_3.txt", False)
 results = []
 passed = 0
 ave_results = [0] * len(test_files)
+ave_path = [0] * len(test_files)
 ctr = 0
 
 header()
@@ -51,18 +52,19 @@ for l in range(laps):
         
         if (len(path) > 0) == t[1]:
             passed += 1
-            results.append([t[0], " Passed! ", end-start, grid.get_size()])
+            results.append([t[0], " Passed! ", len(path), end-start, grid.get_size()])
             ave_results[test] += end-start
+            ave_path[test] += len(path)
         else:
-            results.append([t[0], " Failed! ", end-start, grid.get_size()])
+            results.append([t[0], " Failed! ", len(path), end-start, grid.get_size()])
         grid = None
     print_results(results, (passed/len(test_files))*100)
-    results = []
 
 header()
 print("Laps: " + str(laps))
 print("Average Times:")
 for r in range(len(ave_results)):
     ave_results[r] /= laps
+    ave_path[r] /= laps
 for t in range(len(test_files)):
-    print(test_files[t][0] + ": " + "{:.4f}".format(ave_results[t]))
+    print(test_files[t][0] + ": " + "{:.4f}".format(ave_results[t]) + " Path Length: {:.2f}".format(ave_path[t]))
