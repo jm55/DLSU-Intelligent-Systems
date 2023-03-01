@@ -59,6 +59,7 @@ for l in range(laps):
             results.append([t[0], " Failed! ", len(path), end-start, grid.get_size()])
         grid = None
     print_results(results, (passed/len(test_files))*100)
+    results = []
 
 header()
 print("Laps: " + str(laps))
