@@ -1,3 +1,5 @@
+/*https://github.com/sjbushra/Medical-Diagnosis-system-using-Prolog*/
+
 go :-
 write('What is the patient''s name? '),
 read(Patient),get_single_char(Code),

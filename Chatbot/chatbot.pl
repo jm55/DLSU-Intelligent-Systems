@@ -1,3 +1,9 @@
+/*
+CSINTSY
+MCO2 - CHATBOT
+CRUZADA, ESCALONA, FRANCISCO, LOYOLA
+*/
+
 /*Start function to begin diagnosis*/
 checkup :-
     write("What is the patient's name? "),
