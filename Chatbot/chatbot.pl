@@ -14,6 +14,7 @@ checkup :-
 
 display(Patient, Disease) :- 
     (
+        /*Display the Disease if is not null, else display no diagnosis*/
         (Disease \= null)->
             print_list([Patient, ' was diagnosed with ', Disease, ' based from the symptoms presented.']), nl;
             format("No diagnosis was found for ~w with the given symptoms.",[Patient]), nl
@@ -35,10 +36,10 @@ yesno(Patient, Question) :-
 /*Verifies the question if to be asked again via the yes or no list*/
 check(Patient, Question) :-
     (
-        /*Already asked then set as true, else check if not answered as no or yet asked*/
+        /*Already asked then set as true, else check if not answered as no or not yet asked*/
         yes(Question) -> true; 
         (
-            /*Not yet asked then set as false*/
+            /*Not yet asked then set as false or ask if not yet asked*/
             no(Question) -> false;
             yesno(Patient, Question)
         )
@@ -92,11 +93,6 @@ treatment(def) :-
     format("Treatment for ~w is ~w.~n", [abc, "uvw"]).
 treatment(ace) :-
     format("Treatment for ~w is ~w.~n", [abc, "tuv"]).
-
-/*Print contents of a list like in Python*/
-print_list([]).
-print_list([Word | Words]) :-
-    write(Word), print_list(Words).
 
 /*Clear screen; Just call 'cls.'*/
 clear :- write("\33\[2J").
