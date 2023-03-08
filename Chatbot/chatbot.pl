@@ -14,19 +14,19 @@ checkup :-
     header,
     write("What is the patient's name? "),
     read(Patient),
-    clear,
-    header,
     diagnosis(Patient, Disease),
-    display(Patient, Disease),
-    treatment(Disease).
+    display(Patient, Disease).
 
 display(Patient, Disease) :- 
+    clear,
+    header,
     (
         /*Display the Disease if is not null, else display no diagnosis*/
         (Disease \= null)->
             format("The patient, ~w, is diagnosed with ~w based from the symptoms presented.",[Patient, Disease]), nl, nl;
             format("No diagnosis was found for ~w with the given symptoms.",[Patient]), nl, nl
-    ).
+    ),
+    treatment(Disease).
 
 /*Structure for yes or no questions*/
 yesno(Patient, Question) :-
