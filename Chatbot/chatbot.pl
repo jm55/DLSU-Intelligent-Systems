@@ -4,33 +4,69 @@ MCO2 - CHATBOT
 CRUZADA, ESCALONA, FRANCISCO, LOYOLA
 */
 
-/*Start function to begin diagnosis*/
+/*For prettified printing*/
 header :-
+    clear,
     write("Simply Medical Chatbot"), nl,
     write("by Cruzada, Escalona, Francisco, Loyola"), nl, nl.
 
-checkup :-
-    clear,
+/*Collect patient's basic health data (can be useful for risk detection)*/
+collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     header,
     write("What is the patient's name? "),
     read(Patient),
-    diagnosis(Patient, Disease),
-    display(Patient, Disease).
-
-display(Patient, Disease) :- 
-    clear,
     header,
+    write("What is the patient's age ? "),
+    read(Age),
+    header,
+    write("What is the patient's height (in cm)? "),
+    read(H),
+    header,
+    write("What is the patient's weight (in kg)? "),
+    read(W),
+    header,
+    write("What is the patient's temperature (in C)? "),
+    read(Temp),
+    header,
+    write("What is the patient's systolic blood pressure (in mmHg)? "),
+    read(Sys),
+    header,
+    write("What is the patient's diastolic blood pressure (in mmHg)? "),
+    read(Dias),
+    header,
+    write("What is the patient's heartrate (in bpm)? "),
+    read(HR).
+
+/*Consider this as the main function*/
+checkup :-
+    collect(Patient, Age, H, W, Temp, Sys, Dias, HR),
+    diagnosis(Patient, Disease),
+    display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR).
+
+/*Display the collected health data of patient*/
+display_data(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
+    header,
+    format("Patient: ~w", [Patient]), nl,
+    format("Age: ~w", [Age]), nl,
+    format("Height: ~w cm", [H]), nl,
+    format("Weight: ~w kg", [W]), nl,
+    format("Body Temperature: ~w C", [Temp]), nl,
+    format("Blood Pressure: ~w/~w mmHg", [Sys, Dias]), nl,
+    format("Heart Rate: ~w bpm", [HR]), nl,
+    nl.
+
+/*Displays the diagnosis of disease depending if there was a disease found or not.*/
+display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :- 
+    display_data(Patient, Age, H, W, Temp, Sys, Dias, HR),
     (
         /*Display the Disease if is not null, else display no diagnosis*/
         (Disease \= null)->
-            format("The patient, ~w, is diagnosed with ~w based from the symptoms presented.",[Patient, Disease]), nl, nl;
-            format("No diagnosis was found for ~w with the given symptoms.",[Patient]), nl, nl
-    ),
-    treatment(Disease).
+            format("The patient, ~w, is diagnosed with ~w based from the symptoms presented.", [Patient, Disease]), nl, nl, treatment(Disease);
+            format("No diagnosis was found for ~w with the given symptoms.", [Patient]), nl, nl
+    ).
 
 /*Structure for yes or no questions*/
 yesno(Patient, Question) :-
-    clear,
     header,
     format("~w do you ~w ", [Patient, Question]),
     read(Ans),
@@ -90,19 +126,21 @@ diagnosis(Patient, ace) :-
     symptom(Patient, a),
     symptom(Patient, c),
     symptom(Patient, e).
-diagnosis(Patient, null).
+diagnosis(_, _).
 
 /*Treatment assembly*/
 treatment(abc) :-
     format("The treatment for ~w is ~w.~n", [abc, "xyz"]).
 treatment(bcd) :-
-    format("The treatment for ~w is ~w.~n", [abc, "wxy"]).
+    format("The treatment for ~w is ~w.~n", [bcd, "wxy"]).
 treatment(cde) :-
-    format("The treatment for ~w is ~w.~n", [abc, "vwx"]).
+    format("The treatment for ~w is ~w.~n", [cde, "vwx"]).
 treatment(def) :-
-    format("The treatment for ~w is ~w.~n", [abc, "uvw"]).
+    format("The treatment for ~w is ~w.~n", [def, "uvw"]).
 treatment(ace) :-
-    format("The treatment for ~w is ~w.~n", [abc, "tuv"]).
+    format("The treatment for ~w is ~w.~n", [ace, "tuv"]).
+treatment(_) :-
+    format("The treatment for ~w is ~w.~n", [ace, "tuv"]).
 
 /*Clear screen; Just call 'cls.'*/
 clear :- write("\33\[2J").
