@@ -79,13 +79,13 @@ yesno(Patient, Question) :-
 
 :- dynamic yes/1, no/1.
 
-/*Verifies the question if to be asked again via the yes or no list*/
+/*Verifies the question if to be asked again or if has an answer already via the yes or no answer list*/
 check(Patient, Question) :-
     (
-        /*Already asked then set as true, else check if not answered as no or not yet asked*/
+        /*Check if Question is in yes answer bank, else check if not answered as no or not yet asked*/
         yes(Question) -> true; 
         (
-            /*Not yet asked then set as false or ask if not yet asked*/
+            /*Check if Question is in no answer bank, else ask*/
             no(Question) -> false;
             yesno(Patient, Question)
         )
@@ -139,8 +139,6 @@ treatment(def) :-
     format("The treatment for ~w is ~w.~n", [def, "uvw"]).
 treatment(ace) :-
     format("The treatment for ~w is ~w.~n", [ace, "tuv"]).
-treatment(_) :-
-    format("The treatment for ~w is ~w.~n", [ace, "tuv"]).
 
-/*Clear screen; Just call 'cls.'*/
+/*Clear screen; Just call 'clear.'*/
 clear :- write("\33\[2J").
