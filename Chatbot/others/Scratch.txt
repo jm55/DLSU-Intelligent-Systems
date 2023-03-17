@@ -12,53 +12,54 @@ collect(Patient, Age, H, W, Temp, Sys, Dias, HR) → #Note: '→' was originally
 #SYMPTOMS:
 dry_c 			= symptom(dry_cough)
 wet_c 			= symptom(wet_cough)
-runy_stufy 		= symptom(runny_stuffy_nose)
+runy_stufy 		      = symptom(runny_stuffy_nose)
 sneeze 			= symptom(sneezing)
 sore_t 			= symptom(sore_throat)
 body_p 			= symptom(body_pain) #muscle and joint pains simplified as body_pain
-fwt 			= symptom(fatigue_weakness_tiredness)
+fwt 			      = symptom(fatigue_weakness_tiredness)
 fever 			= symptom(fever) #Better if the function for this checks the value of Temp
-abdomen_p		= symptom(abdominal_pain)
-b_gum_nose 		= symptom(bleeding_gums_nose)
-bloat			= symptom(bloating)
-blood_cough 	= symptom(blood_on_cough)
-blood_stool		= symptom(blood_on_stool)
-blood_vomit 	= symptom(blood_on_vomit)
+abdomen_p			= symptom(abdominal_pain)
+b_gum_nose 			= symptom(bleeding_gums_nose)
+bloat				= symptom(bloating)
+blood_cough 		= symptom(blood_on_cough)
+blood_stool			= symptom(blood_on_stool)
+blood_vomit 		= symptom(blood_on_vomit)
 blurry			= symptom(blurry_vision)
 bp_home			= symptom(bp_home) #Yes or No based on history; BP of 130/85 on home measurement
-bp_onetime		= symptom(bp_one_time) #Yes or No Based on history OR current measurement; BP of 180/110 on one time measurement
+bp_onetime			= symptom(bp_one_time) #Yes or No Based on history OR current measurement; BP of 180/110 on one time measurement
 chest_p			= symptom(chest_pain)
-dry_itch_th		= symptom(dry_itchy_throat)
+dry_itch_th			= symptom(dry_itchy_throat)
 eye_p 			= symptom(eye_pain)
-freq_bowel 		= symptom(frequent_bowel_movements)
-headaches		= symptom(headaches)
-liver_enlarge 	= symptom(liver_enlargement)
-watery_stool 	= symptom(watery_loose_stools)
-loss_appet		= symptom(loss_of_appetite)
-low_temp		= symptom(lower_body_temp)
-moody			= symptom(irritable_moody)
+freq_bowel 			= symptom(frequent_bowel_movements)
+headaches			= symptom(headaches)
+liver_enlarge 		= symptom(liver_enlargement)
+watery_stool 		= symptom(watery_loose_stools)
+loss_appet			= symptom(loss_of_appetite)
+low_temp			= symptom(lower_body_temp)
+moody				= symptom(irritable_moody)
 nausea			= symptom(nausea)
-persis_vom 		= symptom(persistent_vomitting)
-polydipsia		= symptom(excess_thirst)
-polyphagia		= symptom(always_hungry)
-polyuria		= symptom(frequent_urination)
-rapid_hr		= symptom(rapid_heart_rate)
-skin_rash		= symptom(skin_rashes)
-slow_heal		= symptom(slow_healing_sores)
-sore_eyes		= symptom(sore_eyes)
+persis_vom 			= symptom(persistent_vomitting)
+polydipsia			= symptom(excess_thirst)
+polyphagia			= symptom(always_hungry)
+polyuria			= symptom(frequent_urination)
+rapid_hr			= symptom(rapid_heart_rate)
+skin_rash			= symptom(skin_rashes)
+slow_heal			= symptom(slow_healing_sores)
+sore_eyes			= symptom(sore_eyes)
 speak_p			= symptom(pain_when_speaking)
 ssc				= symptom(sweating_shivering_chills)
-swallow_p		= symptom(pain_when_swallow)
-swollen_g		= symptom(swollen_glands)
-two_d_fever		= symptom(two_day_fever) #Assumed True if symptom(fever) is answered with 'ongoing for two or more days' question
-vomit			= symptom(vomitting)
-weight_loss 	= symptom(weight_loss)
+swallow_p			= symptom(pain_when_swallow)
+swollen_g			= symptom(swollen_glands)
+two_d_fever			= symptom(two_day_fever) #Assumed True if symptom(fever) is answered with 'ongoing for two or more days' question
+vomit				= symptom(vomitting)
+weight_loss 		= symptom(weight_loss)
 wheeze			= symptom(wheezing_breathlessness)
-white_spot		= symptom(tiny_white_spots) #Defined as "Tiny white spots with bluis white centers on a red background in the mouth."
+white_spot			= symptom(tiny_white_spots) #Defined as "Tiny white spots with bluish white centers on a red background in the mouth."
 
 #MEASUREMENT-BASED/COMPOUND SYMPTOMS:
 naus_or_vom 	= nausea ∨ vomit
-bp_consult 		= (Sys>=140) ∧ (Dias>=90)
+bp_consult_on_day 		= (Sys>=140) ∧ (Dias>=90)  ∨  (Sys>=180) ∧ (Dias>=110)
+bp_patient_monitors           = (Sys>=130) ∧ (Dias>=85)
 
 <<< JUST A PROPOSAL/SCRATCH BUT NOT SURE REGARDING THE PREDICATES >>>
 <<< JUST SHOWING HOW IT MAY LOOK LIKE >>>
@@ -69,19 +70,19 @@ bp_consult 		= (Sys>=140) ∧ (Dias>=90)
 #DISEASE THAT APPEARED AS SYMPTOMS OF OTHER DISEASES.
 #COMMON-DISEASE RULES:
 colds 		= disease(colds) → (dry_c ∨ wet_c) ∧ runy_stufy ∧ sneeze ∧ sore_t
-diarrhea 	= disease(diarrhea) → bloating ∧ blood_stool ∧ fever ∧ freq_bowel ∧ nausea ∧ abdomen_p ∧ watery_stool
-flu 		= disease(flu) → body_p ∧ [colds] ∧ fwt ∧ fever ∧ headaches
+diarrhea 		= disease(diarrhea) → bloating ∧ blood_stool ∧ fever ∧ freq_bowel ∧ nausea ∧ abdomen_p ∧ watery_stool
+flu 			= disease(flu) → body_p ∧ [colds] ∧ fwt ∧ fever ∧ headaches
 
 #SPECIFIC-DISEASE RULES SHOULD BE ARRANGED BY MOST COMMON TO MOST RARE. 
 #THE POSSIBLE PROBLEM OF THE APPROACH IS THAT IT MAY ASSUME COMPLETE ALREADY DESPITE NOT BEING 'FINISHED' JUST YET.
 #SPECIFIC-DISEASE RULES:
-tubercolosis	= disease(tubercolosis) → chest_p ∧ blood_cough ∧ fwt ∧ fever ∧ freq_bowel ∧ nausea ∧ abdomen_p ∧ watery_stool
-pneumonia		= disease(pneumonia) → ([diarrhea] ∨ fever) ∧ chest_p ∧ fwt ∧ low_temp ∧ naus_or_vom ∧ ssc ∧ wet_c ∧ wheeze
-diabetes 		= disease(diabetes) → blurry ∧ fwt ∧ moody ∧ polydipsia ∧ polyphagia ∧ polyuria ∧ slow_heal ∧ weight_loss
+tubercolosis		= disease(tubercolosis) → chest_p ∧ blood_cough ∧ fwt ∧ fever ∧ freq_bowel ∧ nausea ∧ abdomen_p ∧ watery_stool
+pneumonia			= disease(pneumonia) → ([diarrhea] ∨ fever) ∧ chest_p ∧ fwt ∧ low_temp ∧ naus_or_vom ∧ ssc ∧ wet_c ∧ wheeze
+diabetes 			= disease(diabetes) → blurry ∧ fwt ∧ moody ∧ polydipsia ∧ polyphagia ∧ polyuria ∧ slow_heal ∧ weight_loss
 measles			= disease(measles) → ([flu] ∨ (fever ∨ runy_stufy)) ∧ sore_eyes ∧ dry_c ∧  ∧ skin_rash ∧ sore_t ∧ white_spot
 dengue			= disease(dengue) → ([flu] ∨ (body_p ∨ headaches ∨ fwt)) ∧ naus_or_vom ∧ eye_p ∧ skin_rash ∧ swollen_g ∧ (b_gum_nose ∨ blood_on_stool ∨ blood_on_vomit ∨ liver_large)
 malaria			= disease(malaria) → abdomen_p ∧ body_p ∧ (dry_c ∨ wet_c) ∧ fwt ∧ fever ∧ rapid_hr ∧ ssc ∧ wheeze
-hypertension	= disease(hypertension) → bp_consult ∨ bp_home ∨ bp_consult
-pharyngitis		= disease(pharyngitis) → dry_itch_th ∧ speak_p ∧ swallow_p ∧ sore_t
+hypertension		= disease(hypertension) → bp_consult ∨ (bp_home ∧ bp_patient_monitors)
+pharyngitis			= disease(pharyngitis) → dry_itch_th ∧ speak_p ∧ swallow_p ∧ sore_t
 
 The rest of the system related I/O is found similar to 'chatbot.pl'
