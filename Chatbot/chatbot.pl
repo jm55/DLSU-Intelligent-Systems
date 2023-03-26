@@ -5,6 +5,7 @@ CRUZADA, ESCALONA, FRANCISCO, LOYOLA
 */
 
 /*For prettified printing*/
+
 header :-
     clear,
     write("Simply Medical Chatbot"), nl,
@@ -67,7 +68,7 @@ display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :-
 /*Structure for yes or no questions*/
 yesno(Patient, Question) :-
     header,
-    format("~w do you ~w ", [Patient, Question]),
+    format("~w, do you ~w ", [Patient, Question]),
     read(Ans),
     (
         /*If yes then assert yes to question; Else then assert no to question and set as false*/
@@ -92,13 +93,13 @@ check(Patient, Question) :-
 
 /*Symptom facts gathering*/
 
-colds :-
+colds(Patient) :-
     check(Patient, "have Dry / Wet Cough (y/n)?"),
     check(Patient, "have Runny Nose (y/n)?"),
     check(Patient, "have Sneezing (y/n)?"),
     check(Patient, "have Sore Throat (y/n)?").
 
-flu :-
+flu(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Body Pain (y/n)?"),
@@ -106,14 +107,14 @@ flu :-
     /*Try to implement: OR colds*/
     check(Patient, "have Colds (y/n)?").
 
-diarrhea :-
+diarrhea(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Bloating (y/n)?"),
     check(Patient, "have Frequent bowel movements (y/n)?"),
     check(Patient, "have Watery / loose stools (y/n)?"),
     check(Patient, "have Blood on stool (y/n)?").
 
-tuberculosis :-
+tuberculosis(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Chest pains (y/n)?"),
@@ -122,7 +123,7 @@ tuberculosis :-
     check(Patient, "have Chough with blood (y/n)?"),
     check(Patient, "have Unexplained weight loss (y/n)?").
 
-pneumonia :-
+pneumonia(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Chest pains (y/n)?"),
@@ -131,7 +132,7 @@ pneumonia :-
     /*OR Diarrhea*/
     check(Patient, "have Diarrhea (y/n)?").
 
-diabetes :-
+diabetes(Patient) :-
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Unexplained weight loss (y/n)?"),
     check(Patient, "have Blurry vision (y/n)?"),
@@ -141,7 +142,7 @@ diabetes :-
     check(Patient, "have Polyuria (Frequent urination) (y/n)?"),
     check(Patient, "have Slow-healing sores (y/n)?").
 
-measles :-
+measles(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Runny Nose (y/n)?"),
     check(Patient, "have Sore Throat (y/n)?"),
@@ -152,7 +153,7 @@ measles :-
     /*OR flu*/
     check(Patient, "have Flu (y/n)?").
 
-dengue :-
+dengue(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Body Pain (y/n)?"),
@@ -167,7 +168,7 @@ dengue :-
     check(Patient, "have Flu (y/n)?").
 
 
-malaria :-
+malaria(Patient)  :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
@@ -183,7 +184,7 @@ hypertension(Sys, Dias) :-
     Dias >= 90.
 
 
-pharyngitis :-
+pharyngitis(Patient)  :-
     check(Patient, "have Sore Throat (y/n)?"),
     check(Patient, "have Dry / Scratchy throat (y/n)?"),
     check(Patient, "have Pain when swallowing (y/n)?"),
@@ -192,16 +193,16 @@ pharyngitis :-
 
 /*Diagnosis assembly*/
 diagnosis(Patient, hypertension, Sys, Dias) :- hypertension(Sys, Dias), !.
-diagnosis(Patient, colds, Sys, Dias) :- colds, !.
-diagnosis(Patient, flu, Sys, Dias) :- flu, !.
-diagnosis(Patient, diarrhea, Sys, Dias) :- diarrhea, !.
-diagnosis(Patient, tuberculosis, Sys, Dias) :- tuberculosis, !.
-diagnosis(Patient, pneumonia, Sys, Dias) :- pneumonia, !.
-diagnosis(Patient, diabetes, Sys, Dias) :- diabetes, !.
-diagnosis(Patient, measles, Sys, Dias) :- measles, !.
-diagnosis(Patient, dengue, Sys, Dias) :- dengue, !.
-diagnosis(Patient, malaria, Sys, Dias) :- malaria, !.
-diagnosis(Patient, pharyngitis, Sys, Dias) :- pharyngitis, !.
+diagnosis(Patient, colds, Sys, Dias) :- colds(Patient), !.
+diagnosis(Patient, flu, Sys, Dias) :- flu(Patient) , !.
+diagnosis(Patient, diarrhea, Sys, Dias) :- diarrhea(Patient) , !.
+diagnosis(Patient, tuberculosis, Sys, Dias) :- tuberculosis(Patient) , !.
+diagnosis(Patient, pneumonia, Sys, Dias) :- pneumonia(Patient) , !.
+diagnosis(Patient, diabetes, Sys, Dias) :- diabetes(Patient) , !.
+diagnosis(Patient, measles, Sys, Dias) :- measles(Patient) , !.
+diagnosis(Patient, dengue, Sys, Dias) :- dengue(Patient) , !.
+diagnosis(Patient, malaria, Sys, Dias) :- malaria(Patient) , !.
+diagnosis(Patient, pharyngitis, Sys, Dias) :- pharyngitis(Patient) , !.
 diagnosis(_, _, Sys, Dias).
 
 /*Treatment assembly*/
