@@ -30,17 +30,17 @@ collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     header,
     write("What is the patient's systolic blood pressure (in mmHg)? "),
     read(Sys),
-    header,
-    write("What is the patient's diastolic blood pressure (in mmHg)? "),
+    header,    write("What is the patient's diastolic blood pressure (in mmHg)? "),
     read(Dias),
     header,
     write("What is the patient's heartrate (in bpm)? "),
     read(HR).
 
+
 /*Consider this as the main function*/
 checkup :-
     collect(Patient, Age, H, W, Temp, Sys, Dias, HR),
-    diagnosis(Patient, Disease),
+    diagnosis(Patient, Disease, Sys, Dias),
     display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR),
     undo.
 /*Display the collected health data of patient*/
@@ -56,12 +56,11 @@ display_data(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     nl.
 
 /*Displays the diagnosis of disease depending if there was a disease found or not.*/
-display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :- 
+display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :-
     display_data(Patient, Age, H, W, Temp, Sys, Dias, HR),
     (
         /*Display the Disease if is not null, else display no diagnosis*/
-        (Disease \= null)->
-            format("The patient, ~w, is diagnosed with ~w based from the symptoms presented.", [Patient, Disease]), nl, nl, treatment(Disease);
+        (Disease \= null)->            format("The patient, ~w, is diagnosed with ~w based from the symptoms presented.", [Patient, Disease]), nl, nl, treatment(Disease);
             format("No diagnosis was found for ~w with the given symptoms.", [Patient]), nl, nl
     ).
 
@@ -83,7 +82,7 @@ yesno(Patient, Question) :-
 check(Patient, Question) :-
     (
         /*Check if Question is in yes answer bank, else check if not answered as no or not yet asked*/
-        yes(Question) -> true; 
+        yes(Question) -> true;
         (
             /*Check if Question is in no answer bank, else ask*/
             no(Question) -> false;
@@ -92,6 +91,7 @@ check(Patient, Question) :-
     ).
 
 /*Symptom facts gathering*/
+
 colds :-
     check(Patient, "have Dry / Wet Cough (y/n)?"),
     check(Patient, "have Runny Nose (y/n)?"),
@@ -152,7 +152,7 @@ measles :-
     /*OR flu*/
     check(Patient, "have Flu (y/n)?").
 
-dengue :- 
+dengue :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Body Pain (y/n)?"),
@@ -167,7 +167,7 @@ dengue :-
     check(Patient, "have Flu (y/n)?").
 
 
-malaria :- 
+malaria :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
@@ -178,29 +178,31 @@ malaria :-
     check(Patient, "have Persisting vomiting (y/n)?"),
     check(Patient, "have Abdominal Pain (y/n)?").
 
-hypertension :- 
-    /*Not sure how to check BP in consult*/
-    check(Patient, "BP").
+hypertension(Sys, Dias) :-
+    Sys >= 140,
+    Dias >= 90.
+
 
 pharyngitis :-
     check(Patient, "have Sore Throat (y/n)?"),
     check(Patient, "have Dry / Scratchy throat (y/n)?"),
     check(Patient, "have Pain when swallowing (y/n)?"),
     check(Patient, "have Pain when speaking (y/n)?").
-   
+
+
 /*Diagnosis assembly*/
-diagnosis(Patient, colds) :- colds, !.
-diagnosis(Patient, flu) :- flu, !.
-diagnosis(Patient, diarrhea) :- diarrhea, !.
-diagnosis(Patient, tuberculosis) :- tuberculosis, !.
-diagnosis(Patient, pneumonia) :- pneumonia, !.
-diagnosis(Patient, diabetes) :- diabetes, !.
-diagnosis(Patient, measles) :- measles, !.
-diagnosis(Patient, dengue) :- dengue, !.
-diagnosis(Patient, malaria) :- malaria, !.
-diagnosis(Patient, hypertension) :- hypertension, !.
-diagnosis(Patient, pharyngitis) :- pharyngitis, !.
-diagnosis(_, _).
+diagnosis(Patient, hypertension, Sys, Dias) :- hypertension(Sys, Dias), !.
+diagnosis(Patient, colds, Sys, Dias) :- colds, !.
+diagnosis(Patient, flu, Sys, Dias) :- flu, !.
+diagnosis(Patient, diarrhea, Sys, Dias) :- diarrhea, !.
+diagnosis(Patient, tuberculosis, Sys, Dias) :- tuberculosis, !.
+diagnosis(Patient, pneumonia, Sys, Dias) :- pneumonia, !.
+diagnosis(Patient, diabetes, Sys, Dias) :- diabetes, !.
+diagnosis(Patient, measles, Sys, Dias) :- measles, !.
+diagnosis(Patient, dengue, Sys, Dias) :- dengue, !.
+diagnosis(Patient, malaria, Sys, Dias) :- malaria, !.
+diagnosis(Patient, pharyngitis, Sys, Dias) :- pharyngitis, !.
+diagnosis(_, _, Sys, Dias).
 
 /*Treatment assembly*/
 treatment(flu) :-
