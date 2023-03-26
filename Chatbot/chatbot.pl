@@ -41,8 +41,8 @@ collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
 checkup :-
     collect(Patient, Age, H, W, Temp, Sys, Dias, HR),
     diagnosis(Patient, Disease),
-    display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR).
-
+    display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR),
+    undo.
 /*Display the collected health data of patient*/
 display_data(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     header,
@@ -92,45 +92,119 @@ check(Patient, Question) :-
     ).
 
 /*Symptom facts gathering*/
-symptom(Patient, a) :-
-    check(Patient, "have a (y/n)?").
-symptom(Patient, b) :-
-    check(Patient, "have b (y/n)?").
-symptom(Patient, c) :-
-    check(Patient, "have c (y/n)?").
-symptom(Patient, d) :-
-    check(Patient, "have d (y/n)?").
-symptom(Patient, e) :-
-    check(Patient, "have e (y/n)?").
-symptom(Patient, f) :-
-    check(Patient, "have f (y/n)?").
+colds :-
+    check(Patient, "have Dry / Wet Cough (y/n)?"),
+    check(Patient, "have Runny Nose (y/n)?"),
+    check(Patient, "have Sneezing (y/n)?"),
+    check(Patient, "have Sore Throat (y/n)?").
 
+flu :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Body Pain (y/n)?"),
+    check(Patient, "have Headaches (y/n)?"),
+    /*Try to implement: OR colds*/
+    check(Patient, "have Colds (y/n)?").
+
+diarrhea :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Bloating (y/n)?"),
+    check(Patient, "have Frequent bowel movements (y/n)?"),
+    check(Patient, "have Watery / loose stools (y/n)?"),
+    check(Patient, "have Blood on stool (y/n)?").
+
+tuberculosis :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Chest pains (y/n)?"),
+    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
+    check(Patient, "have Loss off Appetite (y/n)?"),
+    check(Patient, "have Chough with blood (y/n)?"),
+    check(Patient, "have Unexplained weight loss (y/n)?").
+
+pneumonia :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Chest pains (y/n)?"),
+    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
+    check(Patient, "have Wheezing / Breathlessness (y/n)?"),
+    /*OR Diarrhea*/
+    check(Patient, "have Diarrhea (y/n)?").
+
+diabetes :-
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Unexplained weight loss (y/n)?"),
+    check(Patient, "have Blurry vision (y/n)?"),
+    check(Patient, "have Irritable / moody (y/n)?"),
+    check(Patient, "have Polydipsia (Excess thrist) (y/n)?"),
+    check(Patient, "have Polyphagia (Always hungry) (y/n)?"),
+    check(Patient, "have Polyuria (Frequent urination) (y/n)?"),
+    check(Patient, "have Slow-healing sores (y/n)?").
+
+measles :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Runny Nose (y/n)?"),
+    check(Patient, "have Sore Throat (y/n)?"),
+    check(Patient, "have Skin Rashes (y/n)?"),
+    check(Patient, "have Conjunctivities (y/n)?"),
+    /*Not sure how to display this*/
+    check(Patient, "have Tiny white spots (y/n)?"),
+    /*OR flu*/
+    check(Patient, "have Flu (y/n)?").
+
+dengue :- 
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Body Pain (y/n)?"),
+    check(Patient, "have Runny Nose (y/n)?"),
+    check(Patient, "have Vomiting (y/n)?"),
+    check(Patient, "have Blood on vomit (y/n)?"),
+    check(Patient, "have Swollen glands (y/n)?"),
+    check(Patient, "have Bleeding gums or nose (y/n)?"),
+    check(Patient, "have Persisting vomiting (y/n)?"),
+    check(Patient, "have Abdominal Pain (y/n)?"),
+    /*OR flu*/
+    check(Patient, "have Flu (y/n)?").
+
+
+malaria :- 
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
+    check(Patient, "have Body Pain (y/n)?"),
+    check(Patient, "have Wheezing / Breathlessness (y/n)?"),
+    check(Patient, "have Rapid heart rate (y/n)?"),
+    check(Patient, "have Dry / Wet Cough (y/n)?"),
+    check(Patient, "have Persisting vomiting (y/n)?"),
+    check(Patient, "have Abdominal Pain (y/n)?").
+
+hypertension :- 
+    /*Not sure how to check BP in consult*/
+    check(Patient, "BP").
+
+pharyngitis :-
+    check(Patient, "have Sore Throat (y/n)?"),
+    check(Patient, "have Dry / Scratchy throat (y/n)?"),
+    check(Patient, "have Pain when swallowing (y/n)?"),
+    check(Patient, "have Pain when speaking (y/n)?").
+   
 /*Diagnosis assembly*/
-diagnosis(Patient, abc) :-
-    symptom(Patient, a),
-    symptom(Patient, b),
-    symptom(Patient, c).
-diagnosis(Patient, bcd) :-
-    symptom(Patient, b),
-    symptom(Patient, c),
-    symptom(Patient, d).
-diagnosis(Patient, cde) :-
-    symptom(Patient, c),
-    symptom(Patient, d),
-    symptom(Patient, e).
-diagnosis(Patient, def) :-
-    symptom(Patient, d),
-    symptom(Patient, e),
-    symptom(Patient, f).
-diagnosis(Patient, ace) :-
-    symptom(Patient, a),
-    symptom(Patient, c),
-    symptom(Patient, e).
+diagnosis(Patient, colds) :- colds, !.
+diagnosis(Patient, flu) :- flu, !.
+diagnosis(Patient, diarrhea) :- diarrhea, !.
+diagnosis(Patient, tuberculosis) :- tuberculosis, !.
+diagnosis(Patient, pneumonia) :- pneumonia, !.
+diagnosis(Patient, diabetes) :- diabetes, !.
+diagnosis(Patient, measles) :- measles, !.
+diagnosis(Patient, dengue) :- dengue, !.
+diagnosis(Patient, malaria) :- malaria, !.
+diagnosis(Patient, hypertension) :- hypertension, !.
+diagnosis(Patient, pharyngitis) :- pharyngitis, !.
 diagnosis(_, _).
 
 /*Treatment assembly*/
-treatment(abc) :-
-    format("The treatment for ~w is ~w.~n", [abc, "xyz"]).
+treatment(flu) :-
+    format("The treatment for ~w is ~w.~n", [flu, "test"]).
 treatment(bcd) :-
     format("The treatment for ~w is ~w.~n", [bcd, "wxy"]).
 treatment(cde) :-
@@ -142,3 +216,8 @@ treatment(ace) :-
 
 /*Clear screen; Just call 'clear.'*/
 clear :- write("\33\[2J").
+
+/*Reset symptom kb*/
+undo :- retract(yes(_)), fail.
+undo :- retract(no(_)), fail.
+undo.
