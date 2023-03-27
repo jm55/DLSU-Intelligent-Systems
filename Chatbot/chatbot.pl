@@ -6,6 +6,8 @@ CRUZADA, ESCALONA, FRANCISCO, LOYOLA
 
 /*For prettified printing*/
 
+:-style_check(-singleton).
+
 header :-
     clear,
     write("Simply Medical Chatbot"), nl,
