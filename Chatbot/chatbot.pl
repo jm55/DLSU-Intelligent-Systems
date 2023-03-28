@@ -20,37 +20,31 @@ collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     header,
     write("What is the patient's name? "),
     read(Patient),
-    header,
     write("What is the patient's age ? "),
     read(Age),
-    header,
     write("What is the patient's height (in cm)? "),
     read(H),
-    header,
     write("What is the patient's weight (in kg)? "),
     read(W),
-    header,
     write("What is the patient's temperature (in C)? "),
     read(Temp),
-    header,
     write("What is the patient's systolic blood pressure (in mmHg)? "),
     read(Sys),
-    header,    write("What is the patient's diastolic blood pressure (in mmHg)? "),
+    write("What is the patient's diastolic blood pressure (in mmHg)? "),
     read(Dias),
-    header,
     write("What is the patient's heartrate (in bpm)? "),
     read(HR).
 
 
 /*Consider this as the main function*/
 checkup :-
-    collect(Patient, Age, H, W, Temp, Sys, Dias, HR),
-    diagnosis(Patient, Disease, Sys, Dias),
+    collect(Patient, Age, H, W, Temp, Sys, Dias, HR), nl,
+    diagnosis(Patient, Disease, Sys, Dias), nl,
     display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR),
     undo.
+    
 /*Display the collected health data of patient*/
 display_data(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
-    header,
     format("Patient: ~w", [Patient]), nl,
     format("Age: ~w", [Age]), nl,
     format("Height: ~w cm", [H]), nl,
@@ -62,7 +56,7 @@ display_data(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
 
 /*Displays the diagnosis of disease depending if there was a disease found or not.*/
 display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :-
-    display_data(Patient, Age, H, W, Temp, Sys, Dias, HR),
+    /*display_data(Patient, Age, H, W, Temp, Sys, Dias, HR),*/
     (
         /*Display the Disease if is not null, else display no diagnosis*/
         (Disease \= null)->            
@@ -72,7 +66,6 @@ display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :-
 
 /*Structure for yes or no questions*/
 yesno(Patient, Question) :-
-    header,
     format("~w, do you ~w ", [Patient, Question]),
     read(Ans),
     (
@@ -171,7 +164,6 @@ dengue(Patient) :-
     /*OR flu*/
     check(Patient, "have Flu (y/n)?").
 
-
 malaria(Patient)  :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
@@ -186,7 +178,6 @@ malaria(Patient)  :-
 hypertension(Sys, Dias) :-
     Sys >= 140,
     Dias >= 90.
-
 
 pharyngitis(Patient)  :-
     check(Patient, "have Sore Throat (y/n)?"),
@@ -299,8 +290,7 @@ treatment(pharyngitis) :-
 /*Clear screen; Just call 'clear.'*/
 clear :- write("\33\[2J").
 
-/*Reset symptom kb*/
-
+/*Reset kb*/
 undo :- retractall(yes(_)), fail.
 undo :- retractall(no(_)), fail.
 undo :- retractall(collect(_)), fail.
