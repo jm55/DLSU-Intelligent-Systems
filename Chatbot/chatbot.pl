@@ -7,6 +7,8 @@ CRUZADA, ESCALONA, FRANCISCO, LOYOLA
 /*For prettified printing*/
 
 :-style_check(-singleton).
+:- dynamic collect/1, yes/1, no/1. %make these dynamic so that they can be retracted for next run%
+
 
 header :-
     clear,
@@ -79,7 +81,6 @@ yesno(Patient, Question) :-
             assertz(no(Question)), false
     ).
 
-:- dynamic yes/1, no/1.
 
 /*Verifies the question if to be asked again or if has an answer already via the yes or no answer list*/
 check(Patient, Question) :-
@@ -223,6 +224,8 @@ treatment(ace) :-
 clear :- write("\33\[2J").
 
 /*Reset symptom kb*/
-undo :- retract(yes(_)), fail.
-undo :- retract(no(_)), fail.
+
+undo :- retractall(yes(_)), fail.
+undo :- retractall(no(_)), fail.
+undo :- retractall(collect(_)), fail.
 undo.
