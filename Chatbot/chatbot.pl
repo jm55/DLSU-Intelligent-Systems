@@ -216,7 +216,7 @@ list_treatments([H|L]) :-
 
 /*Treatment assembly*/
 treatment(hypertension) :-
-    format("The treatment for ~w is ~w.~n~n", [hypertension]),
+    format("The treatment for ~w are:~n~n", [hypertension]),
     list_treatments([
                         "1. Lifestyle-related changes", "1.1. Eating a heart-healthy diet with less salt.","1.2. Getting regular physical activity.", 
                         "1.3. Maintaining a healthy weight or losing weight.", "1.4. Limiting alcohol intake.", "1.5. Avoid smoking.", 
@@ -259,7 +259,7 @@ treatment(tuberculosis) :-
 treatment(pneumonia) :-
     format("The treatment for ~w are:~n~n", [pneumonia]),
     list_treatments([
-                        "Note: Treatment will be a case-by-case basis, please consult your doctor for full information.", "",
+                        "Note: The treatment will be a case-by-case basis, please consult your doctor for full information.", "",
                         "1. Take antibiotics (as per doctor's prescription).", "2. Rest, drink a lot of water, and take medicine for fever.", 
                         "3. Consult with a doctor or go to a hospital should the symptoms get worse especailly for difficulty of breathing."
                     ]).
@@ -267,8 +267,7 @@ treatment(diabetes) :-
     format("The treatment for ~w are:~n~n", [diabetes]),
     list_treatments([
                         "1. Have a healthy diet.", "2. Do more physical activities.", "3. Avoid foods with sugar and saturated fats.", 
-                        "4. Avoid smoking.", "5. For Type 1 Diabetes: ", 
-                        "Consult doctor for recommendations for insulin injections as well as for orally administered drugs that aides the pancreas in producing more insulin."
+                        "4. Avoid smoking.", "5. For Type 1 Diabetes: Consult doctor for recommendations for insulin injections as well as for orally administered drugs that aides the pancreas in producing more insulin."
                     ]).
 treatment(measles) :-
     format("The treatment for ~w are:~n~n", [measles]),
@@ -278,8 +277,8 @@ treatment(measles) :-
 treatment(dengue) :-
     format("The treatment for ~w are:~n~n", [dengue]),
     list_treatments([   
-                        "Urgent care: Consult with a doctor or go to a hospital should symptoms worsen or stay for too long.", "", 
-                        "General Treatment: ", "1. Rest", "2. Stay Hydrated.", "3. If possible, take a dengue fever vaccine (ask your doctor for more information.", 
+                        "Urgent treatment: Consult with a doctor or go to a hospital should symptoms worsen or stay for too long.", "", 
+                        "Common Treatment: ", "1. Rest", "2. Stay Hydrated.", "3. If possible, take a dengue fever vaccine (ask your doctor for more information.", 
                         "4. Avoid having a mosquito bites by covering your skin."
                     ]).
 treatment(malaria) :-
@@ -290,7 +289,8 @@ treatment(malaria) :-
 treatment(pharyngitis) :-
     format("The treatment for ~w are:~n~n", [pharyngitis]),
     list_treatments([
-                        "Treatment will depend base on cause of the sore throat but here are the general treatments: ", "", "For viral pharyngitis: ", 
+                        "Note: The treatment will depend base on cause of the sore throat, please consult your doctor for further information.",
+                        "Nonetheless, the following are the general treatments based on cause.", "", "For viral pharyngitis: ", 
                         "1. Take salt water gargles", "2. Take pain relievers", "3. Drink extra fluids (e.g., water)", "", "For bacterial/fungal pharyngitis: ", 
                         "1. Treated with antibiotics or antifungal medications respectively (as per doctor's prescription)", 
                         "2. Patients with strep throat are advised to consult with a doctor for possible antibiotic therapy."
