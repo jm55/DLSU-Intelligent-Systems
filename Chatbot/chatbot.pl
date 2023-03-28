@@ -7,7 +7,7 @@ CRUZADA, ESCALONA, FRANCISCO, LOYOLA
 /*For prettified printing*/
 
 :-style_check(-singleton).
-:- dynamic collect/1, yes/1, no/1. %make these dynamic so that they can be retracted for next run%
+:- dynamic collect/8, yes/1, no/1. %make these dynamic so that they can be retracted for next run%
 
 
 header :-
@@ -65,8 +65,9 @@ display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :-
     display_data(Patient, Age, H, W, Temp, Sys, Dias, HR),
     (
         /*Display the Disease if is not null, else display no diagnosis*/
-        (Disease \= null)->            format("The patient, ~w, is diagnosed with ~w based from the symptoms presented.", [Patient, Disease]), nl, nl, treatment(Disease);
-            format("No diagnosis was found for ~w with the given symptoms.", [Patient]), nl, nl
+        (Disease \= null)->            
+            format("The patient, ~w, is diagnosed with ~w based from the symptoms presented.", [Patient, Disease]), nl, nl, treatment(Disease), true;
+            format("No diagnosis was found for ~w with the given symptoms.", [Patient]), nl, nl, true
     ).
 
 /*Structure for yes or no questions*/
@@ -209,16 +210,28 @@ diagnosis(Patient, pharyngitis, Sys, Dias) :- pharyngitis(Patient) , !.
 diagnosis(_, _, Sys, Dias).
 
 /*Treatment assembly*/
+treatment(hypertension) :-
+    format("The treatment for ~w is ~w.~n", [hypertension, "vwx"]).
 treatment(flu) :-
     format("The treatment for ~w is ~w.~n", [flu, "test"]).
-treatment(bcd) :-
-    format("The treatment for ~w is ~w.~n", [bcd, "wxy"]).
-treatment(cde) :-
-    format("The treatment for ~w is ~w.~n", [cde, "vwx"]).
-treatment(def) :-
-    format("The treatment for ~w is ~w.~n", [def, "uvw"]).
-treatment(ace) :-
-    format("The treatment for ~w is ~w.~n", [ace, "tuv"]).
+treatment(colds) :-
+    format("The treatment for ~w is ~w.~n", [colds, "wxy"]).
+treatment(diarrhea) :-
+    format("The treatment for ~w is ~w.~n", [diarrhea, "uvw"]).
+treatment(tuberculosis) :-
+    format("The treatment for ~w is ~w.~n", [tuberculosis, "tuv"]).
+treatment(pneumonia) :-
+    format("The treatment for ~w is ~w.~n", [pneumonia, "wxy"]).
+treatment(diabetes) :-
+    format("The treatment for ~w is ~w.~n", [diabetes, "uvw"]).
+treatment(measles) :-
+    format("The treatment for ~w is ~w.~n", [measles, "tuv"]).
+treatment(dengue) :-
+    format("The treatment for ~w is ~w.~n", [dengue, "wxy"]).
+treatment(malaria) :-
+    format("The treatment for ~w is ~w.~n", [malaria, "uvw"]).
+treatment(pharyngitis) :-
+    format("The treatment for ~w is ~w.~n", [pharyngitis, "tuv"]).
 
 /*Clear screen; Just call 'clear.'*/
 clear :- write("\33\[2J").
