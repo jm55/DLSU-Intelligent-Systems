@@ -144,7 +144,7 @@ measles(Patient) :-
     check(Patient, "have Tiny white spots (y/n)?").
 
 dengue(Patient) :-
-    flu(patient),
+    flu(Patient),
     /*Succeeding symptoms for dengue*/
     check(Patient, "have Vomiting (y/n)?"),
     check(Patient, "have Blood on vomit (y/n)?"),
