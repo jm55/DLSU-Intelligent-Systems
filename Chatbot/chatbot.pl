@@ -20,7 +20,6 @@ collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     header,
     write("What is the patient's name? "),
     read(Patient),
-    /*
     write("What is the patient's age ? "),
     read(Age),
     write("What is the patient's height (in cm)? "),
@@ -29,16 +28,12 @@ collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     read(W),
     write("What is the patient's temperature (in C)? "),
     read(Temp),
-    */
     write("What is the patient's systolic blood pressure (in mmHg)? "),
     read(Sys),
     write("What is the patient's diastolic blood pressure (in mmHg)? "),
-    read(Dias)
-    /*,
+    read(Dias),
     write("What is the patient's heartrate (in bpm)? "),
-    read(HR)
-    */
-    .
+    read(HR).
 
 
 /*Consider this as the main function*/
@@ -143,8 +138,6 @@ diabetes(Patient) :-
 
 measles(Patient) :-
     flu(Patient),
-    check(Patient, "have Fever (y/n)?"),
-    check(Patient, "have Runny Nose (y/n)?"),
     check(Patient, "have Sore Throat (y/n)?"),
     check(Patient, "have Skin Rashes (y/n)?"),
     check(Patient, "have Conjunctivities (y/n)?"),
@@ -161,13 +154,13 @@ dengue(Patient) :-
     check(Patient, "have Abdominal Pain (y/n)?").
 
 malaria(Patient)  :-
+    check(Patient, "have Dry / Wet Cough (y/n)?"),
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
     check(Patient, "have Body Pain (y/n)?"),
     check(Patient, "have Wheezing / Breathlessness (y/n)?"),
     check(Patient, "have Rapid heart rate (y/n)?"),
-    check(Patient, "have Dry / Wet Cough (y/n)?"),
     check(Patient, "have Persisting vomiting (y/n)?"),
     check(Patient, "have Abdominal Pain (y/n)?").
 
@@ -189,8 +182,8 @@ diagnosis(Patient, dengue, Sys, Dias) :- dengue(Patient) , !.
 diagnosis(Patient, tuberculosis, Sys, Dias) :- tuberculosis(Patient) , !.
 diagnosis(Patient, pneumonia, Sys, Dias) :- pneumonia(Patient) , !.
 diagnosis(Patient, diabetes, Sys, Dias) :- diabetes(Patient) , !.
-diagnosis(Patient, measles, Sys, Dias) :- measles(Patient) , !.
 diagnosis(Patient, malaria, Sys, Dias) :- malaria(Patient) , !.
+diagnosis(Patient, measles, Sys, Dias) :- measles(Patient) , !.
 diagnosis(Patient, pharyngitis, Sys, Dias) :- pharyngitis(Patient) , !.
 diagnosis(Patient, flu, Sys, Dias) :- flu(Patient) , !.
 diagnosis(Patient, diarrhea, Sys, Dias) :- diarrhea(Patient) , !.
