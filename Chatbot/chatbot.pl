@@ -89,6 +89,21 @@ check(Patient, Question) :-
     ).
 
 /*Symptom facts gathering*/
+dengue(Patient) :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Body Pain (y/n)?"),
+    check(Patient, "have severe headaches (y/n)?"),
+    check(Patient, "have Runny Nose (y/n)?"),
+    check(Patient, "have Vomiting (y/n)?"),
+    check(Patient, "have Blood on vomit (y/n)?"),
+    check(Patient, "have Swollen glands (y/n)?"),
+    check(Patient, "have Bleeding gums or nose (y/n)?"),
+    check(Patient, "have Persisting vomiting (y/n)?"),
+    check(Patient, "have Abdominal Pain (y/n)?").
+    /*OR flu*/
+    /*check(Patient, "have Flu (y/n)?"). */
+
 flu(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
@@ -97,6 +112,55 @@ flu(Patient) :-
 
     /*Try to implement: OR colds*/
     /*check(Patient, "have Colds (y/n)?"). */
+
+tuberculosis(Patient) :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
+    check(Patient, "have Chest pains (y/n)?"),
+    check(Patient, "have Loss off Appetite (y/n)?"),
+    check(Patient, "have Chough with blood (y/n)?"),
+    check(Patient, "have Unexplained weight loss (y/n)?").
+
+malaria(Patient)  :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
+    check(Patient, "have Body Pain (y/n)?"),
+    check(Patient, "have Wheezing / Breathlessness (y/n)?"),
+    check(Patient, "have Rapid heart rate (y/n)?"),
+    check(Patient, "have Dry / Wet Cough (y/n)?"),
+    check(Patient, "have Persisting vomiting (y/n)?"),
+    check(Patient, "have Abdominal Pain (y/n)?").
+
+diarrhea(Patient) :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Bloating (y/n)?"),
+    check(Patient, "have Frequent bowel movements (y/n)?"),
+    check(Patient, "have Watery / loose stools (y/n)?"),
+    check(Patient, "have Blood on stool (y/n)?").
+
+
+pneumonia(Patient) :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
+    check(Patient, "have Chest pains (y/n)?"),
+    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
+    check(Patient, "have Wheezing / Breathlessness (y/n)?").
+    /*OR Diarrhea*/
+    /*check(Patient, "have Diarrhea (y/n)?").*/
+
+measles(Patient) :-
+    check(Patient, "have Fever (y/n)?"),
+    check(Patient, "have Runny Nose (y/n)?"),
+    check(Patient, "have Sore Throat (y/n)?"),
+    check(Patient, "have Skin Rashes (y/n)?"),
+    check(Patient, "have Conjunctivities (y/n)?"),
+    /*Not sure how to display this*/
+    check(Patient, "have Tiny white spots (y/n)?").
+    /*OR flu*/
+    /*check(Patient, "have Flu (y/n)?").*/
+
 
 pharyngitis(Patient)  :-
     check(Patient, "have Sore Throat (y/n)?"),
@@ -114,68 +178,6 @@ diabetes(Patient) :-
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Slow-healing sores (y/n)?").
 
-diarrhea(Patient) :-
-    check(Patient, "have Fever (y/n)?"),
-    check(Patient, "have Bloating (y/n)?"),
-    check(Patient, "have Frequent bowel movements (y/n)?"),
-    check(Patient, "have Watery / loose stools (y/n)?"),
-    check(Patient, "have Blood on stool (y/n)?").
-
-tuberculosis(Patient) :-
-    check(Patient, "have Fever (y/n)?"),
-    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
-    check(Patient, "have Chest pains (y/n)?"),
-    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
-    check(Patient, "have Loss off Appetite (y/n)?"),
-    check(Patient, "have Chough with blood (y/n)?"),
-    check(Patient, "have Unexplained weight loss (y/n)?").
-
-pneumonia(Patient) :-
-    check(Patient, "have Fever (y/n)?"),
-    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
-    check(Patient, "have Chest pains (y/n)?"),
-    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
-    check(Patient, "have Wheezing / Breathlessness (y/n)?"),
-    /*OR Diarrhea*/
-    check(Patient, "have Diarrhea (y/n)?").
-
-
-
-measles(Patient) :-
-    check(Patient, "have Fever (y/n)?"),
-    check(Patient, "have Runny Nose (y/n)?"),
-    check(Patient, "have Sore Throat (y/n)?"),
-    check(Patient, "have Skin Rashes (y/n)?"),
-    check(Patient, "have Conjunctivities (y/n)?"),
-    /*Not sure how to display this*/
-    check(Patient, "have Tiny white spots (y/n)?"),
-    /*OR flu*/
-    check(Patient, "have Flu (y/n)?").
-
-dengue(Patient) :-
-    check(Patient, "have Fever (y/n)?"),
-    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
-    check(Patient, "have Body Pain (y/n)?"),
-    check(Patient, "have Runny Nose (y/n)?"),
-    check(Patient, "have Vomiting (y/n)?"),
-    check(Patient, "have Blood on vomit (y/n)?"),
-    check(Patient, "have Swollen glands (y/n)?"),
-    check(Patient, "have Bleeding gums or nose (y/n)?"),
-    check(Patient, "have Persisting vomiting (y/n)?"),
-    check(Patient, "have Abdominal Pain (y/n)?").
-    /*OR flu*/
-    /*check(Patient, "have Flu (y/n)?"). */
-
-malaria(Patient)  :-
-    check(Patient, "have Fever (y/n)?"),
-    check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
-    check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
-    check(Patient, "have Body Pain (y/n)?"),
-    check(Patient, "have Wheezing / Breathlessness (y/n)?"),
-    check(Patient, "have Rapid heart rate (y/n)?"),
-    check(Patient, "have Dry / Wet Cough (y/n)?"),
-    check(Patient, "have Persisting vomiting (y/n)?"),
-    check(Patient, "have Abdominal Pain (y/n)?").
 
 hypertension(Patient, Sys, Dias) :-
     (Sys >= 140, Dias >= 90);
@@ -186,15 +188,15 @@ hypertension(Patient, Sys, Dias) :-
 
 /*Diagnosis assembly*/
 diagnosis(Patient, hypertension, Sys, Dias) :- hypertension(Patient, Sys, Dias), !.
+diagnosis(Patient, dengue, Sys, Dias) :- dengue(Patient) , !.
 diagnosis(Patient, flu, Sys, Dias) :- flu(Patient), !.
-diagnosis(Patient, pharyngitis, Sys, Dias) :- pharyngitis(Patient) , !.
-diagnosis(Patient, diabetes, Sys, Dias) :- diabetes(Patient) , !.
-diagnosis(Patient, diarrhea, Sys, Dias) :- diarrhea(Patient) , !.
 diagnosis(Patient, tuberculosis, Sys, Dias) :- tuberculosis(Patient) , !.
+diagnosis(Patient, malaria, Sys, Dias) :- malaria(Patient) , !.
+diagnosis(Patient, diarrhea, Sys, Dias) :- diarrhea(Patient) , !.
 diagnosis(Patient, pneumonia, Sys, Dias) :- pneumonia(Patient) , !.
 diagnosis(Patient, measles, Sys, Dias) :- measles(Patient) , !.
-diagnosis(Patient, dengue, Sys, Dias) :- dengue(Patient) , !.
-diagnosis(Patient, malaria, Sys, Dias) :- malaria(Patient) , !.
+diagnosis(Patient, pharyngitis, Sys, Dias) :- pharyngitis(Patient) , !.
+diagnosis(Patient, diabetes, Sys, Dias) :- diabetes(Patient) , !.
 diagnosis(_, _, Sys, Dias).
 
 /*For writing list of treatments*/
