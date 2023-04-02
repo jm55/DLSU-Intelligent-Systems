@@ -108,7 +108,7 @@ tuberculosis(Patient) :-
     check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
     check(Patient, "have Chest pains (y/n)?"),
     check(Patient, "have Loss off Appetite (y/n)?"),
-    check(Patient, "have Chough with blood (y/n)?"),
+    check(Patient, "have Cough with blood (y/n)?"),
     check(Patient, "have Unexplained weight loss (y/n)?").
 
 malaria(Patient)  :-
