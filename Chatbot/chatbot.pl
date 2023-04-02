@@ -16,18 +16,10 @@ header :-
     write("by Cruzada, Escalona, Francisco, Loyola"), nl, nl.
 
 /*Collect patient's basic health data (can be useful for risk detection)*/
-collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
+collect(Patient, Sys, Dias, HR) :-
     header,
     write("What is the patient's name? "),
     read(Patient),
-    write("What is the patient's age ? "),
-    read(Age),
-    write("What is the patient's height (in cm)? "),
-    read(H),
-    write("What is the patient's weight (in kg)? "),
-    read(W),
-    write("What is the patient's temperature (in C)? "),
-    read(Temp),
     write("What is the patient's systolic blood pressure (in mmHg)? "),
     read(Sys),
     write("What is the patient's diastolic blood pressure (in mmHg)? "),
@@ -38,13 +30,13 @@ collect(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
 
 /*Consider this as the main function*/
 checkup :-
-    collect(Patient, Age, H, W, Temp, Sys, Dias, HR), nl,
+    collect(Patient, Sys, Dias, HR), nl,
     diagnosis(Patient, Disease, Sys, Dias), nl,
-    display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR),
+    display_diagnosis(Patient, Disease, Sys, Dias, HR),
     undo.
 
 /*Display the collected health data of patient*/
-display_data(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
+display_data(Patient, Sys, Dias, HR) :-
     format("Patient: ~w", [Patient]), nl,
     format("Age: ~w", [Age]), nl,
     format("Height: ~w cm", [H]), nl,
@@ -55,8 +47,8 @@ display_data(Patient, Age, H, W, Temp, Sys, Dias, HR) :-
     nl.
 
 /*Displays the diagnosis of disease depending if there was a disease found or not.*/
-display_diagnosis(Patient, Disease, Age, H, W, Temp, Sys, Dias, HR) :-
-    /*display_data(Patient, Age, H, W, Temp, Sys, Dias, HR),*/
+display_diagnosis(Patient, Disease, Sys, Dias, HR) :-
+    /*display_data(Patient, Sys, Dias, HR),*/
     (
         /*Display the Disease if is not null, else display no diagnosis*/
         (Disease \= null)->
@@ -93,7 +85,7 @@ dengue(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Body Pain (y/n)?"),
-    check(Patient, "have severe headaches (y/n)?"),
+    check(Patient, "have Severe Headaches (y/n)?"),
     check(Patient, "have Runny Nose (y/n)?"),
     check(Patient, "have Vomiting (y/n)?"),
     check(Patient, "have Blood on vomit (y/n)?"),
@@ -102,16 +94,13 @@ dengue(Patient) :-
     check(Patient, "have Persisting vomiting (y/n)?"),
     check(Patient, "have Abdominal Pain (y/n)?").
     /*OR flu*/
-    /*check(Patient, "have Flu (y/n)?"). */
 
 flu(Patient) :-
     check(Patient, "have Fever (y/n)?"),
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Body Pain (y/n)?"),
     check(Patient, "have Headaches (y/n)?").
-
     /*Try to implement: OR colds*/
-    /*check(Patient, "have Colds (y/n)?"). */
 
 tuberculosis(Patient) :-
     check(Patient, "have Fever (y/n)?"),
@@ -148,7 +137,6 @@ pneumonia(Patient) :-
     check(Patient, "have Sweating / Shivering / Chills (y/n)?"),
     check(Patient, "have Wheezing / Breathlessness (y/n)?").
     /*OR Diarrhea*/
-    /*check(Patient, "have Diarrhea (y/n)?").*/
 
 measles(Patient) :-
     check(Patient, "have Fever (y/n)?"),
@@ -159,7 +147,6 @@ measles(Patient) :-
     /*Not sure how to display this*/
     check(Patient, "have Tiny white spots (y/n)?").
     /*OR flu*/
-    /*check(Patient, "have Flu (y/n)?").*/
 
 
 pharyngitis(Patient)  :-
@@ -178,13 +165,10 @@ diabetes(Patient) :-
     check(Patient, "have Fatigue / Weakness / Tiredness (y/n)?"),
     check(Patient, "have Slow-healing sores (y/n)?").
 
-
 hypertension(Patient, Sys, Dias) :-
     (Sys >= 140, Dias >= 90);
     (check(Patient, "have an average BP of >=130/85 at home (y/n)?");
      check(Patient, "had a one time BP measurement of 180/110 (y/n)? ")).
-
-
 
 /*Diagnosis assembly*/
 diagnosis(Patient, hypertension, Sys, Dias) :- hypertension(Patient, Sys, Dias), !.
