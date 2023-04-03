@@ -1,4 +1,4 @@
-﻿nitrogen,phosphorus,potassium,temperature,humidity,ph,rainfall,label
+﻿nitrogen,phosphorus,potassium,temperature,humidity,ph,rainfall,expected
 90,42,43,20.87974371,82.00274423,6.502985292,202.9355362,rice
 19,55,20,27.43329405,87.80507732,7.18530147,54.73367631,mungbean
 41,74,18,28.75751783,61.02701476,6.599147298,73.37686831,blackgram
