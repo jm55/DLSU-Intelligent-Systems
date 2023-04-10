@@ -211,12 +211,6 @@ treatment(flu) :-
                         "3.1 Take Phenol found on lozenges and sprays.", "3.2 Gargling with warm salt water.", "3.3 Drink tea with lemon.",
                         "4. Fever/Pain - Take Acetaminophen, Aspirin, or Ibuprofen."
                     ]).
-treatment(colds) :-
-    format("The treatment for ~w are:~n~n", [colds]),
-    list_treatments([
-						"1. Rest and sleep.", "2. Drink plenty of water (fruit juice or squash mixed with water is OK) to avoid dehydration.",
-						"3. Gargle salt water to soothe a sore throat (not suitable for children)."
-                    ]).
 treatment(diarrhea) :-
     format("The treatment for ~w are:~n~n", [diarrhea]),
     list_treatments([
